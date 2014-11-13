@@ -21,8 +21,8 @@ class Project(Base):
 
     id = Column(String(64), primary_key = True)
     title = Column(String(120), nullable=True)
-    teacher_id = Column(String(64), nullable=False)
-    school_id = Column(String(64), nullable = False)
+    teacher_id = Column(String(64), ForeignKey('teachers.id'), nullable=False)
+    school_id = Column(String(64), ForeignKey('schools.id'), nullable = False)
     grade_level = Column(String(20), nullable = True)
     resource_type = Column(String(25), nullable=True)
     total_price = Column(Float, nullable=True)
@@ -37,24 +37,28 @@ class Project(Base):
     thumb_image_url = Column(String(120), nullable=True)
     date_expiration = Column(DateTime, nullable=True)
 
+    teacher = relationship("teacher", backref=backref("projects", order_by=id))
+    school = relationship("school", backref=backref("projects", order_by=id))
+
 class ProjSub(Base):
     __tablename__ = "project_subjects"
 
     id = Column(Integer, primary_key = True)
-    project_id = Column(String(64), nullable=False)
+    project_id = Column(String(64), ForeignKey('projects.id'), nullable=False)
     subject_id = Column(Integer, nullable=True)
     subject = Column(String, nullable=False)
     focus_area = Column(String, nullable=True)
     focus_area_id = Column(Integer, nullable=True)
     primary = Column(Boolean, nullable=True)
 
+    project = relationship("project", backref=backref("project_subjects", order_by=id))
        
 class Teacher(Base):
     __tablename__ = "teachers"
 
     id = Column(String(64), primary_key = True)
     teacher_name = Column(String(30), nullable=True)
-    school_id = Column(String(64), nullable=False)
+    school_id = Column(String(64), ForeignKey('schools.id'), nullable=False)
     donations = Column(Integer, nullable=True)
     description = Column(Text, nullable=True)
     tfa = Column(Boolean, nullable=True)
@@ -64,6 +68,8 @@ class Teacher(Base):
     us_cell = Column(Boolean, nullable=True)
     photo_url = Column(String(120), nullable=True)
     profile_url = Column(String(120), nullable=True)
+
+    school = relationship("school", backref=backref("teachers", order_by=id))
 
 class School(Base):
     __tablename__ = "schools"
@@ -98,33 +104,36 @@ class School(Base):
     school_url = Column(String(120), nullable=True)
     total_proposals = Column(Integer, nullable=True)
 
-    # user = relationship("User",
-    #     backref=backref("ratings", order_by=id))
-    # movie = relationship("Movie",
-    #     backref=backref("ratings", order_by=id))
-
 class Supporter(Base):
     __tablename__ = "supporters"
 
     id = Column(Integer, primary_key = True)
-    school_id = Column(String(64), nullable=False)
-    donor_id = Column(String(64), nullable=False)
+    school_id = Column(String(64), ForeignKey('schools.id'), nullable=False)
+    donor_id = Column(String(64), ForeignKey('donors.id'), nullable=False)
+
+    school = relationship("school", backref=backref("supporters", order_by=id))
+    donor = relationship("donor", backref=backref("supporter_of", order_by=id))
 
 class Angel(Base):
     __tablename__ = "angels"
 
     id = Column(Integer, primary_key = True)
-    school_id = Column(String(64), nullable=False)
-    donor_id = Column(String(64), nullable=False)
+    school_id = Column(String(64), ForeignKey('schools.id'), nullable=False)
+    donor_id = Column(String(64), ForeignKey('donors.id'), nullable=False)
+
+    school = relationship("school", backref=backref("angels", order_by=id))
+    donor = relationship("donor", backref=backref("angel_of", order_by=id))
 
 class Essay(Base):
     __tablename__ = "essays"
 
-    project_id = Column(String(64), primary_key = True)
+    project_id = Column(String(64), ForeignKey('projects.id'), primary_key = True)
     short_description = Column(Text, nullable=True)
     fulfillment_trailer = Column(Text, nullable=True)
     synopsis = Column(Text, nullable=True)
     title = Column(String(120), nullable=True)
+
+    project = relationship("project", backref=backref("essay", order_by=id))
 
 class Donor(Base):
     __tablename__ = "donors"
@@ -149,8 +158,8 @@ class Donation(Base):
     __tablename__ = "donations"
 
     id = Column(String(64), primary_key=True)
-    project_id = Column(String(64), nullable=False)
-    donor_id = Column(String(64), nullable=False)
+    project_id = Column(String(64), ForeignKey('projects.id'), nullable=False)
+    donor_id = Column(String(64), ForeignKey('donors.id'), nullable=False)
     donation_to_project = Column(Float, nullable=True)
     donation_optional_support = Column(Float, nullable=True)
     donation_total = Column(Float, nullable=True)
@@ -163,20 +172,28 @@ class Donation(Base):
     via_giving_page = Column(Boolean, nullable=True)
     for_honoree = Column(Boolean, nullable=True)
 
+    project = relationship("project", backref=backref("donations", order_by=id))
+    donor = relationship("donor", backref=backref("donations", order_by=id))
+
 class Portfolio(Base):
     __tablename__ = "portfolios"
 
     id = Column(Integer, primary_key = True)
-    donor_id = Column(String(64), nullable=False)
-    project_id = Column(String(64), nullable=False)
+    donor_id = Column(String(64), ForeignKey('donors.id'), nullable=False)
+    project_id = Column(String(64), ForeignKey('projects.id'), nullable=False)
+
+    project = relationship("project", backref=backref("portfolios", order_by=id))
+    donor = relationship("donor", backref=backref("portfolios", order_by=id))
 
 class Cluster(Base):
     __tablename__ = "clusters"
 
     id = Column(Integer, primary_key = True)
     cluster_num = Column(Integer, nullable=False)
-    project_id = Column(String(64), nullable=False)
+    project_id = Column(String(64), ForeignKey('projects.id'), nullable=False)
     keywords = Column(Text, nullable=True)
+
+    project = relationship("project", backref=backref("clusters", order_by=id))
 
 ### End class declarations
 
