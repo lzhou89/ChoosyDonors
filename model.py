@@ -1,6 +1,6 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Text, Float, Boolean, BigInteger
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -91,7 +91,7 @@ class School(Base):
     student_teacher_ratio
     free_lunch
     test_results
-    pov_level
+    pov_level = Column(Float, nullable=True)
     crime_rate
     impact_score = Column(Float, nullable=True)
     grade_levels = Column(String(64), nullable=True)
@@ -127,17 +127,56 @@ class Essay(Base):
     title = Column(String(120), nullable=True)
 
 class Donor(Base):
+    __tablename__ = "donors"
+
     id = Column(String(64), primary_key=True)
     email = Column(String(64), nullable=True)
     password = Column(String(64), nullable=True)
+    city = Column(String(64), nullable=True)
+    state = Column(String(2), nullable=True)
+    zip = Column(String(15), nullable=True)
+    is_teacher = Column(Boolean, nullable=True)
+    num_students = Column(Integer, nullable=True)
+    name = Column(String(64), nullable=True)
+    total_proposals = Column(Integer, nullable=True)
+    donor_photo_url = Column(String(120), nullable=True)
+    total_supporters = Column(Integer, nullable=True)
+    num_donors_acquired = Column(Integer, nullable=True)
+    donor_profile_url = Column(String(120), nullable=True)
+    num_proposals_supported = Column(Integer, nullable=True)
+
+class Donation(Base):
+    __tablename__ = "donations"
+
+    id = Column(String(64), primary_key=True)
+    project_id = Column(String(64), nullable=False)
+    donor_id = Column(String(64), nullable=False)
+    donation_to_project = Column(Float, nullable=True)
+    donation_optional_support = Column(Float, nullable=True)
+    donation_total = Column(Float, nullable=True)
+    dollar_amount = Column(String(64), nullable=True)
+    donation_included_optional_support = Column(Boolean, nullable=True)
+    used_acct_credit = Column(Boolean, nullable=True)
+    used_campaign_gift_card = Column(Boolean, nullable=True)
+    used_web_purchased_gift_card = Column(Boolean, nullable=True)
+    payment_was_promo_matched = Column(Boolean, nullable=True)
+    via_giving_page = Column(Boolean, nullable=True)
+    for_honoree = Column(Boolean, nullable=True)
 
 class Portfolio(Base):
+    __tablename__ = "portfolios"
+
     id = Column(Integer, primary_key = True)
     donor_id = Column(String(64), nullable=False)
     project_id = Column(String(64), nullable=False)
 
 class Cluster(Base):
+    __tablename__ = "clusters"
+
     id = Column(Integer, primary_key = True)
+    cluster_num = Column(Integer, nullable=False)
+    project_id = Column(String(64), nullable=False)
+    keywords = Column(Text, nullable=True)
 
 ### End class declarations
 

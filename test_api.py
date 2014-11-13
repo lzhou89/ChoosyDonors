@@ -29,8 +29,12 @@ import requests
 # 	'''http://api.donorschoose.org/common/json_challenge.html?APIKey=DONORSCHOOSE&id=25298''')
 
 ###School Info###
+# r = requests.get(
+# 	'''http://api.donorschoose.org/common/json_school.html?school=1675&APIKey=DONORSCHOOSE''')
+
+###education.com API###
 r = requests.get(
-	'''http://api.donorschoose.org/common/json_school.html?school=1675&APIKey=DONORSCHOOSE''')
+	'''http://api.education.com/service/service.php?f=getTestScores&key=effde11262c296981a4b679d066c5428&sn=sf&v=4&nces_id=360009001332''')
 
 r = r.json()
 print r
