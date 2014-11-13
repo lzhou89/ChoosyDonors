@@ -87,12 +87,12 @@ class School(Base):
     school_charter_ready_promise = Column(Boolean, nullable=True)
     dc_pov = Column(String(20), nullable=True)
     grad_rate = Column(Float, nullable=True)
-    nclb
-    student_teacher_ratio
-    free_lunch
-    test_results
+    nclb = Column(Boolean, nullable=True)
+    student_teacher_ratio = Column(Integer, nullable=True)
+    free_lunch = Column(Integer, nullable=True)
+    test_results = Column(Integer, nullable=True)
     pov_level = Column(Float, nullable=True)
-    crime_rate
+    crime_rate = Column(Float, nullable=True)
     impact_score = Column(Float, nullable=True)
     grade_levels = Column(String(64), nullable=True)
     school_url = Column(String(120), nullable=True)

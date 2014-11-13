@@ -1,6 +1,6 @@
 import model
 import csv
-# from datetime import datetime
+from datetime import datetime
 
 def load_projects(session):
 
@@ -21,7 +21,7 @@ def load_projects(session):
             #     p.matching = True
             p.funding_status = line[39] #should I determine based on percent funded?
             if line[43]:
-                p.date_expiration = catetime.strptime(line[43], "%Y-%m-%d")
+                p.date_expiration = datetime.strptime(line[43], "%Y-%m-%d")
             # session.add(p)
             if line[21]:
                 ps = model.ProjSub()
@@ -47,7 +47,7 @@ def load_projects(session):
             # session.add(t)
             s = model.School()
             s.id = line[2]
-            s.nces_id = int(line[3])
+            s.nces_id = int(line[3]) #should this actually be an int?
             s.latitude = float(line[4])
             s.longitude = float(line[5])
             s.city = line[6]
@@ -57,15 +57,15 @@ def load_projects(session):
             s.district = line[10]
             s.county = line[11]
             boolean_fields = {12: "s.school_charter", 
-                           13: "s.school_magnet",
-                           14: "s.school_year_round",
-                           15: "s.school_nlns",
-                           16: "s.school_kipp",
-                           17: "s.school_charter_ready_promise",
-                           19: "t.tfa",
-                           20: "t.ny_teach",
-                           37: "p.matching",
-                           38: "p.matching"}
+                              13: "s.school_magnet",
+                              14: "s.school_year_round",
+                              15: "s.school_nlns",
+                              16: "s.school_kipp",
+                              17: "s.school_charter_ready_promise",
+                              19: "t.tfa",
+                              20: "t.ny_teach",
+                              37: "p.matching",
+                              38: "p.matching"}
             for key, value in boolean_fields.iteritems():
                 if line[key] == "t":
                     value = True
