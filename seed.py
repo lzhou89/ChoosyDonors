@@ -1,6 +1,10 @@
 import model
 import csv
+import string
+import sys
 from datetime import datetime
+
+csv.field_size_limit(sys.maxsize)
 
 def tf_to_bool(val):
     if val == "f":
@@ -10,9 +14,12 @@ def tf_to_bool(val):
     return None
 
 def load_projects(session):
+    teachers = []
+    schools = []
 
     with open('opendata_projects.csv', 'rb') as csvfile:
         all_projects = csv.reader(csvfile, delimiter = ",")
+        next(all_projects)
         for line in all_projects:
             p = model.Project()
             p.id = line[0]
@@ -21,16 +28,15 @@ def load_projects(session):
             p.grade_level = line[27]
             p.resource_type = line[25]
             p.total_price = float(line[32])
-            p.students_reached = int(line[34])
-            p.percent_funded = float(line[35])/float(line[32])
+            if line[34]:
+                p.students_reached = int(line[34])
+            if line[32] and line[35] and float(line[32]) != 0:
+                p.percent_funded = float(line[35])/float(line[32])
             p.matching = tf_to_bool(line[37]) or tf_to_bool(line[38])
             # p.num_donors = int(line[36])
-            # if line[37] != "f" or line[38] != "f":
-            #     p.matching = True
             # p.funding_status = line[39] #should I determine based on percent funded?
             if line[43]:
                 p.date_expiration = datetime.strptime(line[43], "%Y-%m-%d")
-            # session.add(p)
             if line[21]:
                 ps = model.ProjSub()
                 ps.project_id = line[0]
@@ -45,61 +51,65 @@ def load_projects(session):
                 ps2.focus_area = line[24]
                 ps2.primary = False
                 session.add(ps2)
-            t = model.Teacher()
-            t.id = line[1]
-            t.school_id = line[2]
-            # session.add(t)
-            t.tfa = tf_to_bool(line[19])
-            t.ny_teach = tf_to_bool(line[20])
-            s = model.School()
-            s.id = line[2]
-            s.nces_id = line[3]
-            s.latitude = float(line[4])
-            s.longitude = float(line[5])
-            s.city = line[6]
-            s.state = line[7]
-            s.zipcode = line[8]
-            s.metro = line[9]
-            s.district = line[10]
-            s.county = line[11]
-            # s.school_charter = (line[12] == "t")
-            s.school_charter = tf_to_bool(line[12])
-            s.school_magnet = tf_to_bool(line[13])
-            s.school_year_round = tf_to_bool(line[14])
-            s.school_nlns = tf_to_bool(line[15])
-            s.school_kipp = tf_to_bool(line[16])
-            s.school_charter_ready_promise = tf_to_bool(line[17])
-            s.dc_pov = line[26]
-            
-            # session.add(p)
-            # session.add(t)
-            # session.add(s)
-            session.add_all([p,t,s])
+            if line[1] not in teachers:
+                t = model.Teacher()
+                t.id = line[1]
+                t.school_id = line[2]
+                t.tfa = tf_to_bool(line[19])
+                t.ny_teach = tf_to_bool(line[20])
+                session.add(t)
+                teachers.append(line[1])
+            if line[2] not in schools:
+                s = model.School()
+                s.id = line[2]
+                s.nces_id = line[3]
+                s.latitude = float(line[4])
+                s.longitude = float(line[5])
+                s.city = line[6]
+                s.state = line[7]
+                s.zip_code = line[8]
+                s.metro = line[9]
+                s.district = line[10]
+                s.county = line[11]
+                # s.school_charter = (line[12] == "t")
+                s.school_charter = tf_to_bool(line[12])
+                s.school_magnet = tf_to_bool(line[13])
+                s.school_year_round = tf_to_bool(line[14])
+                s.school_nlns = tf_to_bool(line[15])
+                s.school_kipp = tf_to_bool(line[16])
+                s.school_charter_ready_promise = tf_to_bool(line[17])
+                s.dc_pov = line[26]
+                session.add(s)
+                schools.append(line[2])
+            session.add(p)
         session.commit()
     
 def load_essays(session):
     with open('opendata_essays.csv', 'rb') as csvfile:
         all_essays = csv.reader(csvfile, delimiter = ",")
+        next(all_essays)
         for line in all_essays:
-            e = model.Essay()
-            e.project_id = line[0]
-            e.short_description = line[3]
-            e.fulfillment_trailer = line[4]
-            e.synopsis = line[5]
-            e.title = line[2]
-            session.add(e)
+            query = session.query(model.Project).get(line[0])
+            # if query:
+            query.short_description = line[3].decode("utf-8")
+            query.fulfillment_trailer = line[4].decode("utf-8")
+            query.synopsis = line[5].decode("utf-8")
+            query.title = line[2].decode("utf-8")
         session.commit()
 
 def load_donations(session):
+    donors = []
     with open('opendata_donations.csv', 'rb') as csvfile:
         all_donations = csv.reader(csvfile, delimiter = ",")
+        next(all_donations)
         for line in all_donations:
-            d1 = model.Donor()
-            d1.id = line[2]
-            d1.city = line[4]
-            d1.state = line[5]
-            d1.zipcode = line[6]
-            d1.is_teacher = tf_to_bool(line[7])
+            if line[2] not in donors:
+                d1 = model.Donor()
+                d1.id = line[2]
+                d1.city = line[4]
+                d1.state = line[5]
+                d1.zip_code = line[6]
+                d1.is_teacher = tf_to_bool(line[7])
             d2 = model.Donation()
             d2.id = line[0]
             d2.project_id = line[1]
@@ -122,7 +132,7 @@ def load_poverty_levels(session):
     with open('pov_levels.csv', 'rb') as csvfile:
         all_pov_levels = csv.reader(csvfile, delimiter = ",")
         for line in all_pov_levels:
-            query = session.query(model.School).filter_by(zipcode=line[0]).all()
+            query = session.query(model.School).filter_by(zip_code=line[0]).all()
             poverty_level = float(line[1])
             for school in query:
                 school.pov_level = poverty_level
@@ -146,12 +156,14 @@ def load_poverty_levels(session):
 
 def main(session):
     # You'll call each of the load_* functions with the session as an argument
-    load_projects(session)
-
+    # load_projects(session)
+    load_essays(session)
+    # load_donations(session)
+    # load_poverty_levels(session)
 
 
 
 if __name__ == "__main__":
-    s= model.connect()
+    s= model.session
     main(s)
 
