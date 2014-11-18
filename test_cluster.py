@@ -8,16 +8,23 @@ from nltk.corpus import stopwords
 from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
 from pprint import pprint
+import model
  
  
-def article_list(path):
-    articles = []
-    for subdir, dirs, files in os.walk(path):
-        for file in files:
-            file_path = subdir + os.path.sep + file
-            essay = open(file_path, 'r')
-            text = essay.read()
-            articles.append(text)
+# def article_list(path):
+#     articles = []
+#     for subdir, dirs, files in os.walk(path):
+#         for file in files:
+#             file_path = subdir + os.path.sep + file
+#             essay = open(file_path, 'r')
+#             text = essay.read()
+#             articles.append(text)
+#     return articles
+
+def article_list():
+    # id = model.session.query(model.Project).with_entities(model.Project.col1).all()
+    # synopses = model.session.query(model.Project).with_entities(model.Project.col13).all()
+    articles = model.session.query(model.Project).with_entities(model.Project.col12).all() #fulfillment trailer column
     return articles
 
 def process_text(text, stem=True):

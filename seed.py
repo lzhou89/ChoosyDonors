@@ -157,8 +157,8 @@ def load_poverty_levels(session):
 def main(session):
     # You'll call each of the load_* functions with the session as an argument
     # load_projects(session)
-    load_essays(session)
-    # load_donations(session)
+    # load_essays(session)
+    load_donations(session)
     # load_poverty_levels(session)
 
 
