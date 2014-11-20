@@ -1,0 +1,24 @@
+
+<html>
+
+{% extends 'base.html'%}
+
+{%block body%}
+
+<div>
+<!-- <h1> Search by: </h1> -->
+<form action="/portfolio_choices">    
+    <button name="addmore"> Add More </button>
+</form>
+<form action="/confirm_portfolio">
+    <button name="clear"> Clear All </button>
+</form>
+
+<form action="/">
+    <button> Confirm </button>
+</form>
+</div>
+
+{% endblock %}
+
+</html>

@@ -14,15 +14,16 @@
 	background: #e8f6f7;
 	width: 210px;
 	/*margin: 100px auto 0 auto;*/
+	margin: 0;
 	color: #808080;
 	/*Some cool shadow and glow effect*/
-	box-sh/*adow: 
+/*	box-shadow: 
 		0 5px 15px 1px rgba(0, 0, 0, 0.6), 
-		0 0 20*/0px 1px rgba(255, 255, 255, 0.5);
+		0 0 200px 1px rgba(255, 255, 255, 0.5);*/
 }
 /*heading styles*/
 #accordion h3 {
-	font-size: 12px;
+	font-size: 15px;
 	line-height: 34px;
 	padding: 0 10px;
 	cursor: pointer;
@@ -33,6 +34,7 @@
 /*heading hover effect*/
 #accordion h3:hover {
 	text-shadow: 0 0 1px rgba(255, 255, 255, 0.7);
+	color: black;
 }
 /*iconfont styles*/
 #accordion h3 span {
@@ -44,20 +46,21 @@
 	list-style-type: none;
 }
 /*links*/
-#accordion ul ul li a {
-	color: white;
-	text-decoration: none;
+#accordion ul ul li label {
+/*	color: white;*/
+/*	text-decoration: none;
 	font-size: 11px;
 	line-height: 27px;
-	display: block;
-	padding: 0 15px;
+	display: block;*/
+/*	padding: 0 15px;*/
 	/*transition for smooth hover animation*/
 	transition: all 0.15s;
 }
 /*hover effect on links*/
-#accordion ul ul li a:hover {
-	background: #003545;
-	border-left: 5px solid lightgreen;
+#accordion ul ul li label:hover {
+/*	background: #003545;*/
+/*	border-left: 5px solid lightgreen;*/
+	color:black;
 }
 /*Lets hide the non active LIs by default*/
 #accordion ul ul {
