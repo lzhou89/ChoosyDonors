@@ -11,21 +11,21 @@ from pprint import pprint
 import model
  
  
-# def article_list(path):
-#     articles = []
-#     for subdir, dirs, files in os.walk(path):
-#         for file in files:
-#             file_path = subdir + os.path.sep + file
-#             essay = open(file_path, 'r')
-#             text = essay.read()
-#             articles.append(text)
-#     return articles
-
-def article_list():
-    # id = model.session.query(model.Project).with_entities(model.Project.col1).all()
-    # synopses = model.session.query(model.Project).with_entities(model.Project.col13).all()
-    articles = model.session.query(model.Project).with_entities(model.Project.col12).all() #fulfillment trailer column
+def article_list(path):
+    articles = []
+    for subdir, dirs, files in os.walk(path):
+        for file in files:
+            file_path = subdir + os.path.sep + file
+            essay = open(file_path, 'r')
+            text = essay.read()
+            articles.append(text)
     return articles
+
+# def article_list():
+#     # id = model.session.query(model.Project).with_entities(model.Project.id).all()
+#     # synopses = model.session.query(model.Project).with_entities(model.Project.synopsis).all()
+#     articles = model.session.query(model.Project).with_entities(model.Project.fulfillment_trailer).all() #fulfillment trailer column
+#     return articles
 
 def process_text(text, stem=True):
     """ Tokenize text and stem words removing punctuation """
@@ -45,11 +45,15 @@ def cluster_texts(texts, clusters=3):
     """ Transform texts to Tf-Idf coordinates and cluster texts using K-Means """
     vectorizer = TfidfVectorizer(tokenizer=process_text,
                                  stop_words=stopwords.words('english'),
-                                 max_df=0.5,
-                                 min_df=0.1,
+                                 # max_df=0.5,
+                                 # min_df=0.1,
+                                 max_features=1000,
                                  lowercase=True)
  
     tfidf_model = vectorizer.fit_transform(texts)
+    terms = vectorizer.get_feature_names()
+    features = dict(zip(terms, tfidf_model.data))
+    print features
     km_model = KMeans(n_clusters=clusters)
     km_model.fit(tfidf_model)
  

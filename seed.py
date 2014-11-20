@@ -97,36 +97,41 @@ def load_essays(session):
             query.title = line[2].decode("utf-8")
         session.commit()
 
-def load_donations(session):
-    donors = []
-    with open('opendata_donations.csv', 'rb') as csvfile:
-        all_donations = csv.reader(csvfile, delimiter = ",")
-        next(all_donations)
-        for line in all_donations:
-            if line[2] not in donors:
-                d1 = model.Donor()
-                d1.id = line[2]
-                d1.city = line[4]
-                d1.state = line[5]
-                d1.zip_code = line[6]
-                d1.is_teacher = tf_to_bool(line[7])
-            d2 = model.Donation()
-            d2.id = line[0]
-            d2.project_id = line[1]
-            d2.donor_id = line[2]
-            d2.donation_to_project = float(line[9])
-            d2.donation_optional_support = float(line[10])
-            # d2.donation_total = float(line[11])
-            # d2.dollar_amount = line[12]
-            d2.used_acct_credit = tf_to_bool(line[15])
-            d2.used_campaign_gift_card = tf_to_bool(line[16])
-            d2.used_web_purchased_gift_card = tf_to_bool(line[17])
-            d2.payment_was_promo_matched = tf_to_bool(line[18])
-            d2.via_giving_page = tf_to_bool(line[19])
-            d2.for_honoree = tf_to_bool(line[20])
-            session.add(d1)
-            session.add(d2)
-        session.commit()
+# def load_donations(session):
+def load_donations(session, donors):
+    # donors = []
+    # with open('opendata_donations.csv', 'rb') as csvfile:
+    #     all_donations = csv.reader(csvfile, delimiter = ",")
+    #     # next(all_donations)
+    #     lines = list(all_donations)
+    #     for line in lines[1:]:
+    if line[2] not in donors:
+        d1 = model.Donor()
+        d1.id = line[2]
+        d1.city = line[4]
+        d1.state = line[5]
+        d1.zip_code = line[6]
+        d1.is_teacher = tf_to_bool(line[7])
+        donors.append(line[2])
+    d2 = model.Donation()
+    d2.id = line[0]
+    d2.project_id = line[1]
+    d2.donor_id = line[2]
+    d2.donation_to_project = float(line[9])
+    d2.donation_optional_support = float(line[10])
+    # d2.donation_total = float(line[11])
+    # d2.dollar_amount = line[12]
+    d2.used_acct_credit = tf_to_bool(line[15])
+    d2.used_campaign_gift_card = tf_to_bool(line[16])
+    d2.used_web_purchased_gift_card = tf_to_bool(line[17])
+    d2.payment_was_promo_matched = tf_to_bool(line[18])
+    d2.via_giving_page = tf_to_bool(line[19])
+    d2.for_honoree = tf_to_bool(line[20])
+    session.add(d1)
+    session.add(d2)
+    print "ok"
+# session.commit()
+    return donors
             
 def load_poverty_levels(session):
     with open('pov_levels.csv', 'rb') as csvfile:
@@ -158,7 +163,200 @@ def main(session):
     # You'll call each of the load_* functions with the session as an argument
     # load_projects(session)
     # load_essays(session)
-    load_donations(session)
+    donors = []
+    with open('opendata_donations.csv', 'rb') as csvfile:
+        all_donations = csv.reader(csvfile, delimiter = ",")
+        lines = list(all_donations)
+        for line in lines[1:500000]:
+            if line[2] not in donors:
+                d1 = model.Donor()
+                d1.id = line[2].decode("utf-8")
+                d1.city = line[4].decode("utf-8")
+                d1.state = line[5].decode("utf-8")
+                d1.zip_code = line[6].decode("utf-8")
+                d1.is_teacher = tf_to_bool(line[7])
+                donors.append(line[2])
+            d2 = model.Donation()
+            d2.id = line[0].decode("utf-8")
+            d2.project_id = line[1].decode("utf-8")
+            d2.donor_id = line[2].decode("utf-8")
+            d2.donation_to_project = float(line[9])
+            d2.donation_optional_support = float(line[10])
+            # d2.donation_total = float(line[11])
+            # d2.dollar_amount = line[12]
+            d2.used_acct_credit = tf_to_bool(line[15])
+            d2.used_campaign_gift_card = tf_to_bool(line[16])
+            d2.used_web_purchased_gift_card = tf_to_bool(line[17])
+            d2.payment_was_promo_matched = tf_to_bool(line[18])
+            d2.via_giving_page = tf_to_bool(line[19])
+            d2.for_honoree = tf_to_bool(line[20])
+            session.add(d1)
+            session.add(d2)
+            print "ok"
+        session.commit()
+        for line in lines[500000:1000000]:
+            if line[2] not in donors:
+                d1 = model.Donor()
+                d1.id = line[2].decode("utf-8")
+                d1.city = line[4].decode("utf-8")
+                d1.state = line[5].decode("utf-8")
+                d1.zip_code = line[6].decode("utf-8")
+                d1.is_teacher = tf_to_bool(line[7])
+                donors.append(line[2])
+            d2 = model.Donation()
+            d2.id = line[0].decode("utf-8")
+            d2.project_id = line[1].decode("utf-8")
+            d2.donor_id = line[2].decode("utf-8")
+            d2.donation_to_project = float(line[9])
+            d2.donation_optional_support = float(line[10])
+            # d2.donation_total = float(line[11])
+            # d2.dollar_amount = line[12]
+            d2.used_acct_credit = tf_to_bool(line[15])
+            d2.used_campaign_gift_card = tf_to_bool(line[16])
+            d2.used_web_purchased_gift_card = tf_to_bool(line[17])
+            d2.payment_was_promo_matched = tf_to_bool(line[18])
+            d2.via_giving_page = tf_to_bool(line[19])
+            d2.for_honoree = tf_to_bool(line[20])
+            session.add(d1)
+            session.add(d2)
+            print "ok"
+        session.commit()
+        for line in lines[1000000:1500000]:
+            if line[2] not in donors:
+                d1 = model.Donor()
+                d1.id = line[2].decode("utf-8")
+                d1.city = line[4].decode("utf-8")
+                d1.state = line[5].decode("utf-8")
+                d1.zip_code = line[6].decode("utf-8")
+                d1.is_teacher = tf_to_bool(line[7])
+                donors.append(line[2])
+            d2 = model.Donation()
+            d2.id = line[0].decode("utf-8")
+            d2.project_id = line[1].decode("utf-8")
+            d2.donor_id = line[2].decode("utf-8")
+            d2.donation_to_project = float(line[9])
+            d2.donation_optional_support = float(line[10])
+            # d2.donation_total = float(line[11])
+            # d2.dollar_amount = line[12]
+            d2.used_acct_credit = tf_to_bool(line[15])
+            d2.used_campaign_gift_card = tf_to_bool(line[16])
+            d2.used_web_purchased_gift_card = tf_to_bool(line[17])
+            d2.payment_was_promo_matched = tf_to_bool(line[18])
+            d2.via_giving_page = tf_to_bool(line[19])
+            d2.for_honoree = tf_to_bool(line[20])
+            session.add(d1)
+            session.add(d2)
+            print "ok"
+        session.commit()
+        for line in lines[1500000:2000000]:
+            if line[2] not in donors:
+                d1 = model.Donor()
+                d1.id = line[2].decode("utf-8")
+                d1.city = line[4].decode("utf-8")
+                d1.state = line[5].decode("utf-8")
+                d1.zip_code = line[6].decode("utf-8")
+                d1.is_teacher = tf_to_bool(line[7])
+                donors.append(line[2])
+            d2 = model.Donation()
+            d2.id = line[0].decode("utf-8")
+            d2.project_id = line[1].decode("utf-8")
+            d2.donor_id = line[2].decode("utf-8")
+            d2.donation_to_project = float(line[9])
+            d2.donation_optional_support = float(line[10])
+            # d2.donation_total = float(line[11])
+            # d2.dollar_amount = line[12]
+            d2.used_acct_credit = tf_to_bool(line[15])
+            d2.used_campaign_gift_card = tf_to_bool(line[16])
+            d2.used_web_purchased_gift_card = tf_to_bool(line[17])
+            d2.payment_was_promo_matched = tf_to_bool(line[18])
+            d2.via_giving_page = tf_to_bool(line[19])
+            d2.for_honoree = tf_to_bool(line[20])
+            session.add(d1)
+            session.add(d2)
+            print "ok"
+        session.commit()
+        for line in lines[2000000:2500000]:
+            if line[2] not in donors:
+                d1 = model.Donor()
+                d1.id = line[2].decode("utf-8")
+                d1.city = line[4].decode("utf-8")
+                d1.state = line[5].decode("utf-8")
+                d1.zip_code = line[6].decode("utf-8")
+                d1.is_teacher = tf_to_bool(line[7])
+                donors.append(line[2])
+            d2 = model.Donation()
+            d2.id = line[0]
+            d2.project_id = line[1].decode("utf-8")
+            d2.donor_id = line[2].decode("utf-8")
+            d2.donation_to_project = float(line[9])
+            d2.donation_optional_support = float(line[10])
+            # d2.donation_total = float(line[11])
+            # d2.dollar_amount = line[12]
+            d2.used_acct_credit = tf_to_bool(line[15])
+            d2.used_campaign_gift_card = tf_to_bool(line[16])
+            d2.used_web_purchased_gift_card = tf_to_bool(line[17])
+            d2.payment_was_promo_matched = tf_to_bool(line[18])
+            d2.via_giving_page = tf_to_bool(line[19])
+            d2.for_honoree = tf_to_bool(line[20])
+            session.add(d1)
+            session.add(d2)
+            print "ok"
+        session.commit()
+        for line in lines[2500000:3000000]:
+            if line[2] not in donors:
+                d1 = model.Donor()
+                d1.id = line[2].decode("utf-8")
+                d1.city = line[4].decode("utf-8")
+                d1.state = line[5].decode("utf-8")
+                d1.zip_code = line[6].decode("utf-8")
+                d1.is_teacher = tf_to_bool(line[7])
+                donors.append(line[2])
+            d2 = model.Donation()
+            d2.id = line[0].decode("utf-8")
+            d2.project_id = line[1].decode("utf-8")
+            d2.donor_id = line[2].decode("utf-8")
+            d2.donation_to_project = float(line[9])
+            d2.donation_optional_support = float(line[10])
+            # d2.donation_total = float(line[11])
+            # d2.dollar_amount = line[12]
+            d2.used_acct_credit = tf_to_bool(line[15])
+            d2.used_campaign_gift_card = tf_to_bool(line[16])
+            d2.used_web_purchased_gift_card = tf_to_bool(line[17])
+            d2.payment_was_promo_matched = tf_to_bool(line[18])
+            d2.via_giving_page = tf_to_bool(line[19])
+            d2.for_honoree = tf_to_bool(line[20])
+            session.add(d1)
+            session.add(d2)
+            print "ok"
+        session.commit()
+        for line in lines[3000000:]:
+            if line[2] not in donors:
+                d1 = model.Donor()
+                d1.id = line[2].decode("utf-8")
+                d1.city = line[4].decode("utf-8")
+                d1.state = line[5].decode("utf-8")
+                d1.zip_code = line[6].decode("utf-8")
+                d1.is_teacher = tf_to_bool(line[7])
+                donors.append(line[2])
+            d2 = model.Donation()
+            d2.id = line[0]
+            d2.project_id = line[1].decode("utf-8")
+            d2.donor_id = line[2].decode("utf-8")
+            d2.donation_to_project = float(line[9])
+            d2.donation_optional_support = float(line[10])
+            # d2.donation_total = float(line[11])
+            # d2.dollar_amount = line[12]
+            d2.used_acct_credit = tf_to_bool(line[15])
+            d2.used_campaign_gift_card = tf_to_bool(line[16])
+            d2.used_web_purchased_gift_card = tf_to_bool(line[17])
+            d2.payment_was_promo_matched = tf_to_bool(line[18])
+            d2.via_giving_page = tf_to_bool(line[19])
+            d2.for_honoree = tf_to_bool(line[20])
+            session.add(d1)
+            session.add(d2)
+            print "ok"
+        session.commit()
+    # load_donations(session)
     # load_poverty_levels(session)
 
 
