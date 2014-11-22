@@ -118,12 +118,12 @@ select:focus, textarea:focus, input:focus{
   display: block;
 }
 
-.movie{
+.project{
   margin-bottom: 20px;
   padding-right: 5px;
 }
 
-.movie h4{
+.project h4{
   margin-top: 15px;
   margin-bottom: -5px;
   border-bottom: 1px solid #A9A9A9; 

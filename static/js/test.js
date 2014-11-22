@@ -2,8 +2,8 @@ $(document).ready(function(){
 
   initSliders();
 
-  var FJS = FilterJS(movies, '#movies', {
-    template: '#movie-template',
+  var FJS = FilterJS(projects, '#projects', {
+    template: '#project-template',
     // search: {ele: '#searchbox'},
     search: {ele: '#searchbox', fields: ['runtime']}, // With specific fields
     callbacks: {
@@ -30,7 +30,7 @@ $(document).ready(function(){
   });
 
   FJS.setStreaming({
-    data_url: '../data/stream_movies.json',
+    data_url: '../data/stream_projects.json',
     stream_after: 1,
     batch_size: 50
   });
@@ -40,13 +40,13 @@ $(document).ready(function(){
   FJS.addCriteria({field: 'runtime', ele: '#runtime_filter', type: 'range'});
   FJS.addCriteria({field: 'genre', ele: '#genre_criteria input:checkbox'});
 
-  /*
-   * Add multiple criterial.
-    FJS.addCriteria([
-      {field: 'genre', ele: '#genre_criteria input:checkbox'},
-      {field: 'year', ele: '#year_filter', type: 'range'}
-    ])
-  */
+  
+   // * Add multiple criterial.
+   //  FJS.addCriteria([
+   //    {field: 'genre', ele: '#genre_criteria input:checkbox'},
+   //    {field: 'year', ele: '#year_filter', type: 'range'}
+   //  ])
+  
 
   window.FJS = FJS;
 });

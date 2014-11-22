@@ -10,11 +10,28 @@
 	background: #4EB889;
 	font-family: Nunito, arial, verdana;
 }*/
+#wrapper {
+        padding-left: 250px;
+    }
+
+#sidebar {
+	margin-left: -300px;
+	position: fixed;
+}
+
+#page-contents-wrapper {
+	top:0;
+	padding: 20px;
+	margin-left: -10px;
+}
+
 #accordion {
 	background: #e8f6f7;
-	width: 210px;
+	width: 250px;
+	margin-left: 0px;
+	padding: 0px;
 	/*margin: 100px auto 0 auto;*/
-	margin: 0;
+	/*margin: 0;*/
 	color: #808080;
 	/*Some cool shadow and glow effect*/
 /*	box-shadow: 
@@ -46,16 +63,21 @@
 	list-style-type: none;
 }
 /*links*/
-#accordion ul ul li label {
+#accordion ul ul li div {
 /*	color: white;*/
 /*	text-decoration: none;
 	font-size: 11px;
 	line-height: 27px;
 	display: block;*/
-/*	padding: 0 15px;*/
+	padding: 0 30px;
 	/*transition for smooth hover animation*/
 	transition: all 0.15s;
 }
+
+#accordion ul ul ul li div{
+	padding: 0 50px;
+}
+
 /*hover effect on links*/
 #accordion ul ul li label:hover {
 /*	background: #003545;*/

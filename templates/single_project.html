@@ -21,7 +21,7 @@
     <!-- ghpages_start
     <script src="filter.min.js" type="text/javascript"></script>
     ghpages_end -->
-    <script src="../static/data/movies.js" type="text/javascript"></script>
+    <script src="../static/data/projects.js" type="text/javascript"></script>
     <script src="../static/js/test.js" type="text/javascript"></script>
   </head>
   <body>
@@ -160,31 +160,33 @@
       </div>
       <div class="sorting content col-span-9">
       </div>
-      <div class="movies content col-span-9" id="movies">
+      <div class="projects content col-span-9" id="projects">
       </div>
-      <script id="movie-template" type="text/html">
+      <script id="project-template" type="text/html">
         <div class="col-span-4 movie">
           <div class="thumbnail">
-            <span class="label label-success rating"><%= rating %>
+<!--            <span class="label label-success rating"><%= rating %>
             <i class="glyphicon glyphicon-star"></i>
-          </span>
+          </span> --!>  
           <div class="caption">
-            <h4><%= name %></h4>
+            <h4><%= title %></h4>
             <div class="outline">
-              <%= outline %>
-              <span class="runtime">
+              <%= fulfillmentTrailer %>
+              <!--<span class="runtime">
                 <i class="glyphicon glyphicon-time"></i>
-                <%= runtime %> mins.
+                <%= runtime %> mins.--!>
               </span>
             </div>
             <div class="detail">
               <dl>
-                <dt>Director</dt>
-                <dd><%= director %></dd>
-                <dt>Actors</dt>
-                <dd><%= stars %></dt>
-                <dt>Year</dt>
-                <dd><%= year %></dd>
+                <dt>Teacher</dt>
+                <dd><%= teacherName %></dd>
+                <dt>School</dt>
+                <dd><%= schoolName %></dt>
+                <dt>Town</dt>
+                <dd><%= city %>,<%= state %></dt>
+                <dt>Grade Level</dt>
+                <dd><%= gradeLevel %></dd>
               </dl>
             </div>
           </div>

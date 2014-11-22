@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
+
+{% extends 'base.html'%}
+
+{%block body%}
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <link href="../static/css/menu.css" media="screen" rel="stylesheet" type="text/css">
+    <script src="../static/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="../static/js/jquery-ui-1.10.2.custom.min.js" type="text/javascript"></script>
+  
+    <script src="../static/js/test_copy.js" type="text/javascript"></script>
+  </head>
+  
+  <body>
+  <div id="wrapper">
+    <div class="container" id="container">
+      <div id="sidebar">
+<!--       <h1 class="title">Projects</h1> -->
+      <div class="sidebar col-span-3">
+      </div>
+      <form id="search-keywords">
+        <div>
+          <input type="text" id="searchbox" placeholder="Keyword...">
+          <button type="submit">
+            <span class="glyphicon glyphicon-search search-icon"></span>
+          </button>
+        </div>
+      </form>
+      <form id="search-zipcode">
+        <div>
+          <input type="text" id="zipcode" placeholder="Zip Code...">
+          <button type="submit">
+            <span class="glyphicon glyphicon-search search-icon"></span>
+          </button>
+        </div>
+      </form>
+      <div id="accordion">
+        <ul>
+          <li>
+              <h3><span class="icon-dashboard"></span>Subject</h3>
+                <ul>
+                  <li><div class="checkbox"><label>
+                    <input type="checkbox" id="MathSci" value="MathSci">
+                    Math & Science</label></div></li>
+                      <ul>
+                        <li><div class="checkbox"><label><input type="checkbox" id="EnvSci" value="EnvSci">
+                        Environmental Science</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="Math" value="Math">
+                        Mathematics</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="Health" value="Health">
+                          Health & Life Science</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="AppSci" value="AppSci">
+                          Applied Sciences</label></div></li>
+                      </ul>
+                  <li><div class="checkbox"><label><input type="checkbox" id="MusArt" value="MusArt">
+                  Music & The Arts</label></div></li>
+                      <ul>
+                        <li><div class="checkbox"><label><input type="checkbox" id="PerArt" value="PerArt">
+                          Performing Arts</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="VisArt" value="VisArt">
+                          Visual Arts</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="Mus" value="Mus">
+                          Music</label></div></li>
+                      </ul>
+                  <li><div class="checkbox"><label><input type="checkbox" id="LitLan" value="LitLan">
+                  Literacy & Language</label></div></li>
+                      <ul>
+                        <li><div class="checkbox"><label><input type="checkbox" id="Lit" value="Lit">
+                          Literacy</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="LitWri" value="LitWri">
+                          Literature & Writing</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="Forlan" value="Forlan">
+                          Foreign Languages</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="ESL" value="ESL">
+                          ESL</label></div></li>
+                      </ul>
+                  <li><div class="checkbox"><label><input type="checkbox" id="HisCiv" value="HisCiv">
+                  History & Civics</label></div></li>
+                      <ul>
+                        <li><div class="checkbox"><label><input type="checkbox" id="HisGeo" value="HisGeo">
+                          History & Geography</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="CivGov" value="CivGov">
+                          Civics & Government</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="Econ" value="Econ">
+                          Economics</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="SocSci" value="SocSci">
+                          Social Sciences</label></div></li>
+                      </ul>
+                  <li><div class="checkbox"><label><input type="checkbox" id="SpecN" value="SpecN">
+                  Special Needs</label></div></li>
+                  <li><div class="checkbox"><label><input type="checkbox" id="AppL" value="AppL">
+                  Applied Learning</label></div></li>
+                      <ul>
+                        <li><div class="checkbox"><label><input type="checkbox" id="EarDev" value="EarDev">
+                          Early Development</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="ComSer" value="ComSer">
+                          Community Service</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="CharEd" value="CharEd">
+                          Character Education</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="ColCar" value="ColCar">
+                          College & Career Prep</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="Extrac" value="Extrac">
+                          Extracurricular</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="ParInv" value="ParInv">
+                          Parent Involvement</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="Other" value="Other">
+                          Other</label></div></li>
+                      </ul>
+                  <li><div class="checkbox"><label><input type="checkbox" id="HeaSpo" value="HeaSpo">
+                  Health & Sports</label></div></li>
+                      <ul>
+                        <li><div class="checkbox"><label><input type="checkbox" id="Sports" value="Sports">
+                          Sports</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="HeaWel" value="HeaWel">
+                          Health & Wellness</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="Nut" value="Nut">
+                          Nutrition</label></div></li>
+                        <li><div class="checkbox"><label><input type="checkbox" id="GymFit" value="GymFit">
+                          Gym & Fitness</label></div></li>
+                      </ul>
+                </ul>
+              </li>
+            <!-- we will keep this LI open by default -->
+          <li class="active">
+            <h3><span class="icon-tasks"></span>Resource</h3>
+              <ul>
+                <li><div class="checkbox"><label><input type="checkbox" id="Books" value="Books">
+                  Books</label></div></li>
+                <li><div class="checkbox"><label><input type="checkbox" id="Tech" value="Tech">
+                  Technology</label></div></li>
+                <li><div class="checkbox"><label><input type="checkbox" id="Supp" value="Supp">
+                  Supplies</label></div></li>
+                <li><div class="checkbox"><label><input type="checkbox" id="TriVis" value="TriVis">
+                  Trips & Visitors</label></div></li>
+              </ul>
+          </li>
+          <li>
+            <h3><span class="icon-calendar"></span>Grades</h3>
+              <ul>
+                <li><div class="checkbox"><label><input type="checkbox" id="PreK2" value="PreK2">
+                  Grades PreK-2</label></div></li>
+                <li><div class="checkbox"><label><input type="checkbox" id="3-5" value="3-5">
+                  Grades 3-5</label></div></li>
+                <li><div class="checkbox"><label><input type="checkbox" id="6-8" value="6-8">
+                  Grades 6-8</label></div></li>
+                <li><div class="checkbox"><label><input type="checkbox" id="9-12" value="9-12">
+                  Grades 9-12</label></div></li>
+              </ul>
+          </li>
+        </ul>
+      </div>
+
+      </div>
+      <div id="page-contents-wrapper">
+      <div id="results">
+        {%for result in query[0:5]%}
+        {{result.id}}
+        {%endfor%}
+        <!-- query -->
+      </div>
+    </div>
+    </div>
+    
+  </div>
+  </body>
+
+
+{% endblock %}
+
+  </html>

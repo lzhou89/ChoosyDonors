@@ -19,11 +19,22 @@ def confirm_portfolio():
 
 @app.route("/project_search")
 def search_single_project():
-    return render_template("single_project.html")
+    query = modelsession.query(model.Project).all()
+    # print query
+    return render_template("single_project (copy).html", query=query)
 
 @app.route("/project")
 def show_project():
     return render_template("project_page.html")
+
+@app.route("/keyword_search", methods=["POST"])
+def keyword_search():
+    print request.form.get("keyword")
+    print request.form.get("zipcode")
+    checkboxes = request.form.get("checkboxes")
+    checkboxes = checkboxes.split(",")
+    print checkboxes
+    return "Hello"
 
 @app.route("/login", methods=["GET"])
 def show_login():
