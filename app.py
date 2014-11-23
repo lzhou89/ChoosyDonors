@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, flash, request, session
 import model
+import json
 
 app = Flask(__name__)
 app.secret_key = "adfjalskdjf"
@@ -31,10 +32,29 @@ def show_project():
 def keyword_search():
     print request.form.get("keyword")
     print request.form.get("zipcode")
+    zip_code = request.form.get("zipcode")
     checkboxes = request.form.get("checkboxes")
-    checkboxes = checkboxes.split(",")
+    if checkboxes:
+        checkboxes = checkboxes.split(",")
     print checkboxes
-    return "Hello"
+    look_up = modelsession.query(model.Project)
+    if zip_code:
+        # query = query.options(subqueryload(model.Project.school)).filter(School.zip_code==zip_code)
+        query = look_up.join(model.School).filter(model.School.zip_code==zip_code)
+    query = query.all()
+    print query[0].id
+    json_list = []
+    for i in range(len(query)):
+        json_list.append({"title": query[i].title, 
+                        "teacher": query[i].teacher.teacher_name,
+                        "school": query[i].school.school_name,
+                        "location": query[i].school.city + ", " + query[i].school.state,
+                        "grade": query[i].grade_level,
+                        "matching": query[i].matching,
+                        "keywords": "tbd",
+                        "needs": query[i].fulfillment_trailer})
+    results = json.dumps(json_list)
+    return results
 
 @app.route("/login", methods=["GET"])
 def show_login():

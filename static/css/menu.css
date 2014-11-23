@@ -17,12 +17,14 @@
 #sidebar {
 	margin-left: -300px;
 	position: fixed;
+	height: 100%;
 }
 
 #page-contents-wrapper {
 	top:0;
 	padding: 20px;
 	margin-left: -10px;
+	height: 100%;
 }
 
 #accordion {
