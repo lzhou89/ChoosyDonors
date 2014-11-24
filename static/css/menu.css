@@ -94,3 +94,14 @@
 	display: block;
 }*/
 
+.pagination li {
+	/*text-align: center;*/
+	display:inline-block;
+	padding:5px;
+}
+
+.pagination {
+	text-align: center;
+}
+
+

@@ -60,13 +60,18 @@ function getSearchTerms(e){
     data: input
   })
   .done(function(results) {
-    var output = JSON.parse(results)
+    var output = JSON.parse(results);
     $('#results').html("");
     // var rDiv = document.createElement('div');
+
     for (var i=0; i < 5; i++) {
       var rDiv = document.createElement('div');
       $('#results').append(rDiv);
-      rDiv.innerHTML = "<dd>"+output[i]["title"]+"</dd>"+
+      if (output.length === 0) {
+      rDiv.innerHTML = "No results found.";
+      break;
+      } else{
+        rDiv.innerHTML = "<dd>"+output[i]["title"]+"</dd>"+
             "<dt>Teacher Name:</dt><dd>"+output[i]["teacher"]+"</dd>"+
             "<dt>School Name:</dt><dd>"+output[i]["school"]+"</dd>"+
             "<dt>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
@@ -75,22 +80,10 @@ function getSearchTerms(e){
             "<dt>Keywords:</dt><dd></dd>"+
             "<dt>Needs:</dt><dd>"+output[i]["needs"]+"</dd>"+
           "</dl>";
+      }
 
+      
     }
-    
-      // "{%for result in results[0:5]%}"+
-      //   "<div>"+
-      //     "<dl>"+
-      //       "<dd>{{result.title}}</dd>"+
-      //       "<dt>Teacher Name:</dt><dd>{{result.teacher}}</dd>"+
-      //       "<dt>School Name:</dt><dd>{{result.school}}</dd>"+
-      //       "<dt>School Location:</dt><dd>{{result.location}}</dd>"+
-      //       "<dt>Grade Level:</dt><dd>{{result.grade}}</dd>"+
-      //       "<dt>Matching Icon:</dt><dd>{{result.matching}}</dd>"+
-      //       "<dt>Keywords:</dt><dd></dd>"+
-      //       "<dt>Needs:</dt><dd>{{result.needs}}</dd>"+
-      //     "</dl>"+
-      //   "</div>");
   });
 }
 
@@ -126,8 +119,31 @@ function getCheckboxes(){
     url: "/keyword_search",
     data: input
   })
-  .done(function( msg ) {
-    console.log(msg);
+  .done(function(results) {
+    var output = JSON.parse(results);
+    $('#results').html("");
+    // var rDiv = document.createElement('div');
+
+    for (var i=0; i < 5; i++) {
+      var rDiv = document.createElement('div');
+      $('#results').append(rDiv);
+      if (output.length === 0) {
+      rDiv.innerHTML = "No results found.";
+      break;
+      } else{
+        rDiv.innerHTML = "<dd>"+output[i]["title"]+"</dd>"+
+            "<dt>Teacher Name:</dt><dd>"+output[i]["teacher"]+"</dd>"+
+            "<dt>School Name:</dt><dd>"+output[i]["school"]+"</dd>"+
+            "<dt>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
+            "<dt>Grade Level:</dt><dd>"+output[i]["grade"]+"</dd>"+
+            "<dt>Matching Icon:</dt><dd>"+output[i]["matching"]+"</dd>"+
+            "<dt>Keywords:</dt><dd></dd>"+
+            "<dt>Needs:</dt><dd>"+output[i]["needs"]+"</dd>"+
+          "</dl>";
+      }
+
+      
+    }
   });
 
 }

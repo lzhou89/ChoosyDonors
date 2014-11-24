@@ -17,7 +17,7 @@ def load_projects(session):
     teachers = []
     schools = []
 
-    with open('test_opendata_projects.csv', 'rb') as csvfile:
+    with open('opendata_projects.csv', 'rb') as csvfile:
         all_projects = csv.reader(csvfile, delimiter = ",")
         next(all_projects)
         for line in all_projects:
@@ -161,8 +161,8 @@ def load_poverty_levels(session):
 
 def main(session):
     # You'll call each of the load_* functions with the session as an argument
-    # load_projects(session)
-    load_essays(session)
+    load_projects(session)
+    # load_essays(session)
     # donors = []
     # with open('opendata_donations.csv', 'rb') as csvfile:
     #     all_donations = csv.reader(csvfile, delimiter = ",")

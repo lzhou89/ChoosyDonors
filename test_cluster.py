@@ -5,27 +5,33 @@ import os
 from nltk import word_tokenize
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
-from sklearn.cluster import KMeans
-from sklearn.feature_extraction.text import TfidfVectorizer
-from pprint import pprint
+# from sklearn.cluster import KMeans
+# from sklearn.feature_extraction.text import TfidfVectorizer
+# from pprint import pprint
 import model
  
  
-def article_list(path):
-    articles = []
-    for subdir, dirs, files in os.walk(path):
-        for file in files:
-            file_path = subdir + os.path.sep + file
-            essay = open(file_path, 'r')
-            text = essay.read()
-            articles.append(text)
-    return articles
-
-# def article_list():
-#     # id = model.session.query(model.Project).with_entities(model.Project.id).all()
-#     # synopses = model.session.query(model.Project).with_entities(model.Project.synopsis).all()
-#     articles = model.session.query(model.Project).with_entities(model.Project.fulfillment_trailer).all() #fulfillment trailer column
+# def article_list(path):
+#     articles = []
+#     for subdir, dirs, files in os.walk(path):
+#         for file in files:
+#             file_path = subdir + os.path.sep + file
+#             essay = open(file_path, 'r')
+#             text = essay.read()
+#             articles.append(text)
 #     return articles
+
+def article_id_list():
+    # id = model.session.query(model.Project).with_entities(model.Project.id).all()
+    # synopses = model.session.query(model.Project).with_entities(model.Project.synopsis).all()
+    articles_ids = model.session.query(model.Project).with_entities(model.Project.id, model.Project.fulfillment_trailer).all() #fulfillment trailer column
+    return articles_ids
+
+def article_list(list):
+    articles = []
+    for item in list:
+        articles.append(item[1])
+    return articles
 
 def process_text(text, stem=True):
     """ Tokenize text and stem words removing punctuation """
@@ -66,6 +72,9 @@ def cluster_texts(texts, clusters=3):
  
  
 if __name__ == "__main__":
-    articles = article_list('Test_Essays')
-    clusters = cluster_texts(articles)
-    pprint(dict(clusters))
+    prelim = article_id_list()
+    articles = article_list(prelim)
+    print articles[0:5]
+    # print ids[0:5]
+    # clusters = cluster_texts(articles)
+    # pprint(dict(clusters))

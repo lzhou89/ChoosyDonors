@@ -3,9 +3,34 @@
 
 {% extends 'base.html'%}
 
+<!-- {% block head %}
+
+
+
+{% endblock %} -->
+
 {%block body%}
 
-<div>
+<head>
+    <style>
+    body{
+        background-image: url("/static/css/images/iStock_000015780724_Large.jpg");
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        ;}
+
+    #content{
+        position: absolute;
+        bottom: 100px;
+
+    }
+
+</style>
+</head>
+
+<body>
+<div id="content">
 <h1> Search by: </h1>
 <form action="/portfolio_choices">    
 	<button name="Portfolio"> Portfolio of Projects </button>
@@ -17,7 +42,7 @@
 	<button> Impact </button>
 </form>
 </div>
-
+</body>
 {% endblock %}
 
 </html>

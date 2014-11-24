@@ -4,10 +4,11 @@ from sqlalchemy import Column, Integer, String, DateTime, Text, Float, Boolean
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy import distinct
 
 
 
-engine = create_engine("sqlite:///projects.db", echo=True)
+engine = create_engine("sqlite:///projects.db", echo=False)
 session = scoped_session(sessionmaker(bind=engine, 
                                       autocommit=False,
                                       autoflush=False))

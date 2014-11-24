@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+
+{% extends 'base.html'%}
+
+{%block body%}
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <link href="../static/css/menu.css" media="screen" rel="stylesheet" type="text/css">
+    <script src="../static/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="../static/js/jquery-ui-1.10.2.custom.min.js" type="text/javascript"></script>
+    <script src="http://listjs.com/no-cdn/list.js"></script>
+    <script src="http://listjs.com/no-cdn/list.pagination.js"></script>
+  
+    <script src="../static/js/portfolio_select.js" type="text/javascript"></script>
+  </head>
+  
+  <body>
+  <div id="wrapper">
+    <div class="container" id="container">
+      <div id="page-contents-wrapper">
+        <div id="results">
+          <ul class="list">
+          {%for result in query%}
+            <div class="checkbox"><input type="checkbox" id="{{result.id}}" value="{{result.id}}">
+              <dl>
+                <dd><a href="/project/{{result.id}}">{{result.title}}</a></dd>
+                <dt>Teacher Name:</dt><dd>{{result.teacher.teacher_name}}</dd>
+                <dt>School Name:</dt><dd>{{result.school.school_name}}</dd>
+                <dt>School Location:</dt><dd>{{result.school.city}}, {{result.school.state}}</dd>
+                <dt>Grade Level:</dt><dd>{{result.grade_level}}</dd>
+                <dt>Matching Icon:</dt><dd>{{result.matching}}</dd>
+                <dt>Keywords:</dt><dd></dd>
+                <dt>Needs:</dt><dd>{{result.fulfillment_trailer}}</dd>
+              </dl>
+            </div>
+          {%endfor%}
+          </ul>
+          <ul class="pagination"></ul>
+          <!-- query -->
+        </div>
+        <form id="add">
+          <div>
+            <button class="btn btn-primary btn-lg pull-right" type="submit">Add to Portfolio</button>
+        </div>
+        </form>
+      </div>
+    </div>
+    
+  </div>
+
+  </body>
+
+
+
+{% endblock %}
+
+
+
+  </html>
