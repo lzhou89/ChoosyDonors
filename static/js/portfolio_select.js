@@ -59,7 +59,7 @@ function getProjects(e){
       };
       var listObj = new List('results', options);
 
-      $('#add').attr("style", "visibility:visible")
+      $('#add').attr("style", "visibility:visible");
     });
   }
 }
