@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Text, Float, Boolean
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
-from sqlalchemy import distinct
+from sqlalchemy import distinct, func
 
 
 

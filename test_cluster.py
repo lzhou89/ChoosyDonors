@@ -5,9 +5,9 @@ import os
 from nltk import word_tokenize
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
-# from sklearn.cluster import KMeans
-# from sklearn.feature_extraction.text import TfidfVectorizer
-# from pprint import pprint
+from sklearn.cluster import KMeans
+from sklearn.feature_extraction.text import TfidfVectorizer
+from pprint import pprint
 import model
  
  
@@ -33,6 +33,12 @@ def article_list(list):
         articles.append(item[1])
     return articles
 
+def id_list(list):
+    ids = []
+    for item in list:
+        ids.append(item[1])
+    return ids
+
 def process_text(text, stem=True):
     """ Tokenize text and stem words removing punctuation """
     text = text.encode("utf-8")
@@ -47,7 +53,7 @@ def process_text(text, stem=True):
     return tokens
  
  
-def cluster_texts(texts, clusters=3):
+def cluster_texts(texts, clusters=100):
     """ Transform texts to Tf-Idf coordinates and cluster texts using K-Means """
     vectorizer = TfidfVectorizer(tokenizer=process_text,
                                  stop_words=stopwords.words('english'),
@@ -74,7 +80,9 @@ def cluster_texts(texts, clusters=3):
 if __name__ == "__main__":
     prelim = article_id_list()
     articles = article_list(prelim)
-    print articles[0:5]
+    ids = id_list(prelim)
+    # print articles[0:5]
     # print ids[0:5]
-    # clusters = cluster_texts(articles)
-    # pprint(dict(clusters))
+    clusters = cluster_texts(articles)
+    with open('clusters.txt', 'w') as out:
+        pprint(dict(clusters), stream=out)

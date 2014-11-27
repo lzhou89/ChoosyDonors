@@ -19,9 +19,16 @@
   <div id="wrapper">
     <div class="container" id="container">
       <div id="page-contents-wrapper">
+        <div>
+          <form id="number" method="POST">
+            <label for="proj_number">Number of projects to support:</label>
+            <input type="text" name="{{id}}" id="proj_number" /><br>
+            <input type="submit">
+          </form>
+        </div>
         <div id="results">
-          <ul class="list">
-          {%for result in query%}
+          <ul class="list" id="projects">
+          <!-- {%for result in query%}
             <div class="checkbox"><input type="checkbox" id="{{result.id}}" value="{{result.id}}">
               <dl>
                 <dd><a href="/project/{{result.id}}">{{result.title}}</a></dd>
@@ -34,12 +41,11 @@
                 <dt>Needs:</dt><dd>{{result.fulfillment_trailer}}</dd>
               </dl>
             </div>
-          {%endfor%}
+          {%endfor%} -->
           </ul>
           <ul class="pagination"></ul>
-          <!-- query -->
         </div>
-        <form id="add">
+        <form id="add" style="visibility:hidden">
           <div>
             <button class="btn btn-primary btn-lg pull-right" type="submit">Add to Portfolio</button>
         </div>

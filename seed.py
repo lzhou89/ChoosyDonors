@@ -143,6 +143,15 @@ def load_poverty_levels(session):
                 school.pov_level = poverty_level
         session.commit()
 
+def load_clusters(session):
+    with open('clusters.csv', 'rb') as csvfile:
+        all_clusters = csv.reader(csvfile, delimiter = ",")
+        for line in all_clusters:
+            c = model.Cluster()
+            c.cluster_num = line[2]
+            c.project_id = line[1]
+            session.add(c)
+        session.commit()
 
 
 # def load_movies(session):
@@ -161,7 +170,7 @@ def load_poverty_levels(session):
 
 def main(session):
     # You'll call each of the load_* functions with the session as an argument
-    load_projects(session)
+    # load_projects(session)
     # load_essays(session)
     # donors = []
     # with open('opendata_donations.csv', 'rb') as csvfile:
@@ -358,6 +367,7 @@ def main(session):
     #     session.commit()
     # load_donations(session)
     # load_poverty_levels(session)
+    load_clusters(session)
 
 
 

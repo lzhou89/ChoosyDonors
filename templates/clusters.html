@@ -3,11 +3,13 @@
 {% extends 'base.html'%}
 
 {%block body%}
-<h1> Select Projects: </h1>
-<form method="POST">
-    <label for="proj_number">Number of projects to support:</label>
-    <input type="text" name="proj_number" id="proj_number" /><br>
-    <input type="submit"></form>
+<h1> Select a project theme: </h1>
+{% for id in range(100) %}
+	<ul>
+		<li><a href="portfolio_projects/{{id}}">{{id}}</li>
+	</ul>
+{% endfor %}
+
 
 <!-- div with template format of results but no results -->
 
