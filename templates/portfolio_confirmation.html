@@ -16,28 +16,31 @@
 <form action="/portfolio_choices">    
     <button name="addmore"> Add More </button>
 </form>
-<form action="/confirm_portfolio">
+<form action="/clear_all">
     <button name="clear"> Clear All </button>
 </form>
     <div id="results">
-        <ul class="list">
-        {%for result in query%}
-          <div class="item">
-            <dl>
-              <dd><a href="/project/{{result.id}}">{{result.title}}</a></dd>
-              <dt>Teacher Name:</dt><dd>{{result.teacher.teacher_name}}</dd>
-              <dt>School Name:</dt><dd>{{result.school.school_name}}</dd>
-              <dt>School Location:</dt><dd>{{result.school.city}}, {{result.school.state}}</dd>
-              <dt>Grade Level:</dt><dd>{{result.grade_level}}</dd>
-              <dt>Matching Icon:</dt><dd>{{result.matching}}</dd>
-              <dt>Keywords:</dt><dd></dd>
-              <dt>Needs:</dt><dd>{{result.fulfillment_trailer}}</dd>
-            </dl>
-          </div>
-        {%endfor%}
-        </ul>
-        <ul class="pagination"></ul>
-        <!-- query -->
+        {% if query|length == 0 %}
+          No projects selected. 
+        {% else %}
+          <ul class="list">
+          {%for result in query%}
+            <div class="checkbox"><input type="checkbox" id="{{result.id}}" value="{{result.id}}">
+              <dl>
+                <dd><a href="/project/{{result.id}}">{{result.title}}</a></dd>
+                <dt>Teacher Name:</dt><dd>{{result.teacher.teacher_name}}</dd>
+                <dt>School Name:</dt><dd>{{result.school.school_name}}</dd>
+                <dt>School Location:</dt><dd>{{result.school.city}}, {{result.school.state}}</dd>
+                <dt>Grade Level:</dt><dd>{{result.grade_level}}</dd>
+                <dt>Matching Icon:</dt><dd>{{result.matching}}</dd>
+                <dt>Keywords:</dt><dd></dd>
+                <dt>Needs:</dt><dd>{{result.fulfillment_trailer}}</dd>
+              </dl>
+            </div>
+          {%endfor%}
+          </ul>
+          <ul class="pagination"></ul>
+        {% endif %}
       </div>
 <form action="/">
     <button> Confirm </button>
@@ -46,7 +49,7 @@
 
 <script>
   var options = {
-    valueNames: ['item'],
+    valueNames: ['checkbox'],
     page: 5,
     plugins: [
       ListPagination({})

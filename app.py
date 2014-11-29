@@ -76,6 +76,11 @@ def confirm_portfolio():
         projects.append(query)
     return render_template("portfolio_confirmation.html", query=projects)
 
+@app.route("/clear_all")
+def clear_portfolio():
+    session["portfolio"] = []
+    return redirect("/confirm_portfolio")
+
 @app.route("/project_search")
 def search_single_project():
     checkboxes = {}

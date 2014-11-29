@@ -25,6 +25,10 @@ function getProjects(e){
       $('#results').html("<ul class='list' id='projects'></ul>");
     // var rDiv = document.createElement('div');
 
+      if (output.length < proj_number){
+        alert("This topic does not have that many projects. All available projects are listed below.");
+      }
+
       for (var i=0; i < output.length; i++) {
         var rDiv = document.createElement('div');
         rDiv.className = "checkbox";
