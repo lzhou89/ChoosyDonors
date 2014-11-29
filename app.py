@@ -76,10 +76,24 @@ def confirm_portfolio():
         projects.append(query)
     return render_template("portfolio_confirmation.html", query=projects)
 
-@app.route("/clear_all")
+@app.route("/clear_all", methods=["GET"])
 def clear_portfolio():
+    print "ok"
     session["portfolio"] = []
-    return redirect("/confirm_portfolio")
+    return "ok"
+
+@app.route("/clear_selected", methods=["POST"])
+def clear_project():
+    checkboxes = request.form.get("checkboxes")
+    checkboxes = checkboxes.split(",")
+    checkboxes = [project[1:-1] for project in checkboxes]
+    print checkboxes
+    saved_projects = session["portfolio"]
+    print saved_projects
+    new_project_list = [project for project in saved_projects if project not in checkboxes]
+    print new_project_list
+    session["portfolio"] = new_project_list
+    return "ok"
 
 @app.route("/project_search")
 def search_single_project():

@@ -9,6 +9,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>  
 <script src="http://listjs.com/no-cdn/list.js"></script>
 <script src="http://listjs.com/no-cdn/list.pagination.js"></script>
+<script src="../static/js/portfolio_confirm.js" type="text/javascript"></script>
 </head>
 
 <div>
@@ -16,8 +17,11 @@
 <form action="/portfolio_choices">    
     <button name="addmore"> Add More </button>
 </form>
-<form action="/clear_all">
+<form id="clear_all">
     <button name="clear"> Clear All </button>
+</form>
+<form id="clear_projs">
+    <button name="clear"> Clear Selected </button>
 </form>
     <div id="results">
         {% if query|length == 0 %}
