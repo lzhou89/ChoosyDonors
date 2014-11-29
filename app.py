@@ -63,7 +63,8 @@ def save_portfolio_projects():
         for item in checkboxes:
             session["portfolio"].append(item)
         print session["portfolio"]
-    return redirect("/confirm_portfolio")
+    # return redirect("/confirm_portfolio")
+    return "/confirm_portfolio"
 
 @app.route("/confirm_portfolio")
 def confirm_portfolio():

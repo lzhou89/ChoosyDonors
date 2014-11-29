@@ -84,6 +84,9 @@ function getCheckboxes(e){
     type: "POST",
     url: "/mid_portfolio",
     data: input
+  })
+  .done(function(url) {
+    window.location.href = url;
   });
 
 }
