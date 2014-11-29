@@ -5,8 +5,66 @@
 
 {%block body%}
 
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+  <script src="../static/js/impact.js" type="text/javascript"></script> 
+
+</head>
+
+<style>
+
+#map {
+    width: 700px;
+    height: 500px;
+}
+
+.SvgOverlay {
+}
+
+.SvgOverlay, .SvgOverlay svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    fill-opacity: .7;
+}
+
+/*.SvgOverlay path {
+    stroke: Orange;
+    stroke-width: 2px;
+    fill: Orange;
+    fill-opacity: .3;
+}*/
+
+/*.counties {
+  fill: none;
+}*/
+
+/*.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}*/
+
+.q0-9 { fill:rgb(247,251,255); }
+.q1-9 { fill:rgb(222,235,247); }
+.q2-9 { fill:rgb(198,219,239); }
+.q3-9 { fill:rgb(158,202,225); }
+.q4-9 { fill:rgb(107,174,214); }
+.q5-9 { fill:rgb(66,146,198); }
+.q6-9 { fill:rgb(33,113,181); }
+.q7-9 { fill:rgb(8,81,156); }
+.q8-9 { fill:rgb(8,48,107); }
+
+</style>
+
 <div>
-<h1> Impact </h1>
+	<h1> Impact </h1>
+	<div id="map">
+	</div>
 
 </div>
 

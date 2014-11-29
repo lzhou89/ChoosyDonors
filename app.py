@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, flash, request, session
+from flask import Flask, render_template, redirect, flash, request, session, url_for
 from sqlalchemy import func
 import model
 import json
@@ -261,17 +261,19 @@ def show_profile():
 
 @app.route("/impact")
 def show_impact():
+    url_for('static', filename='zips_us_topo.json')
+    url_for('static', filename='pov_levels.csv')
+    # url = "url_for('static', filname='zips_us_topo.json')"
     return render_template("impact.html")
 
 #To Do:
 #add donate button & check how to submit donation
 #cluster visualization
-#js to enter number & show certain # of results
-#ability to check to keep a project for portfolio - add checked to session
-#confirm page remove individual projects - delete from session
 #search doesn't combine subjects, only adds them so AND instead of OR
 #initial html search is fugly
+#js for # of projects - avoid repeats?
 
 
 if __name__ == "__main__":
-	app.run(debug = True)
+    app.run(debug = True)
+    

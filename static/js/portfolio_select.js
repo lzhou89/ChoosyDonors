@@ -80,17 +80,21 @@ function getCheckboxes(e){
   if(selected.length > 0){
     selected = selected.toString();
     input["checkboxes"] = selected;
-  }
-  console.log(selected);
-  console.log(input);
+    console.log(selected);
+    console.log(input);
 
-  $.ajax({
-    type: "POST",
-    url: "/mid_portfolio",
-    data: input
-  })
-  .done(function(url) {
-    window.location.href = url;
-  });
+    $.ajax({
+      type: "POST",
+      url: "/mid_portfolio",
+      data: input
+    })
+    .done(function(url) {
+      window.location.href = url;
+    });
+  }
+  else{
+    alert("No projects selected.");
+  }
+  
 
 }

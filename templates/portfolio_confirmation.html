@@ -23,6 +23,9 @@
 <form id="clear_projs">
     <button name="clear"> Clear Selected </button>
 </form>
+<form id="confirm_portfolio">
+  <label for="portfolio_name">Portfolio Name:</label>
+  <input type="text" id="portfolio_name" name="portfolio_name">
     <div id="results">
         {% if query|length == 0 %}
           No projects selected. 
@@ -46,22 +49,9 @@
           <ul class="pagination"></ul>
         {% endif %}
       </div>
-<form action="/">
     <button> Confirm </button>
 </form>
 </div>
-
-<script>
-  var options = {
-    valueNames: ['checkbox'],
-    page: 5,
-    plugins: [
-      ListPagination({})
-    ]
-  };
-
-  var listObj = new List('results', options);
-</script>
 
 {% endblock %}
 
