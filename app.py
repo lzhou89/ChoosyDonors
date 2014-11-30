@@ -263,8 +263,19 @@ def show_profile():
 def show_impact():
     url_for('static', filename='zips_us_topo.json')
     url_for('static', filename='pov_levels.csv')
-    # url = "url_for('static', filname='zips_us_topo.json')"
-    return render_template("impact.html")
+    query = modelsession.query(model.Project).order_by(func.random()).limit(1000).all()
+    json_list = []
+    for i in range(len(query)):
+        json_list.append({"id": query[i].id,
+                        "title": query[i].title, 
+                        "latitude": query[i].school.latitude,
+                        "longitude": query[i].school.longitude,
+                        "location": query[i].school.city + ", " + query[i].school.state,
+                        "grade": query[i].grade_level,
+                        "needs": query[i].fulfillment_trailer})
+    results = json.dumps(json_list)
+    print "results sending"
+    return render_template("impact.html", results=results)
 
 #To Do:
 #add donate button & check how to submit donation
@@ -272,6 +283,7 @@ def show_impact():
 #search doesn't combine subjects, only adds them so AND instead of OR
 #initial html search is fugly
 #js for # of projects - avoid repeats?
+#project description in infobox on map
 
 
 if __name__ == "__main__":
