@@ -36,7 +36,7 @@ def article_list(list):
 def id_list(list):
     ids = []
     for item in list:
-        ids.append(item[1])
+        ids.append(item[0])
     return ids
 
 def process_text(text, stem=True):
@@ -81,6 +81,10 @@ if __name__ == "__main__":
     prelim = article_id_list()
     articles = article_list(prelim)
     ids = id_list(prelim)
+    # with open('ids.txt', 'w') as f:
+    #     for item in ids:
+    #         item = item.encode('utf-8')
+    #         f.write("%s\n" % item)
     # print articles[0:5]
     # print ids[0:5]
     clusters = cluster_texts(articles)

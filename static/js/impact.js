@@ -24,7 +24,7 @@ $(document).ready(function () {
 
 	queue()
 		.defer(d3.json, "/static/zips_us_topo.json")
-		.defer(d3.csv, "/static/pov_levels.csv", function(d) {rateById.set(d.id, +d.rate);})
+		.defer(d3.csv, "/static/impact.csv", function(d) {rateById.set(d.id, +d.rate);})
 		.await(ready);
 
 	function ready(error, us) {

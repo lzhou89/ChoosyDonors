@@ -33,7 +33,7 @@ def load_projects():
     projects = []
     for item in cluster_query:
         proj_id = item.project_id
-        proj_id = proj_id[1:]
+        proj_id = '"'+proj_id+'"'
         print proj_id
         query = modelsession.query(model.Project).filter(model.Project.id==proj_id).first()
         projects.append(query)
@@ -277,6 +277,10 @@ def show_impact():
     print "results sending"
     return render_template("impact.html", results=results)
 
+@app.route("/zips")
+def list_zips():
+    return render_template("zip_codes.html")
+
 #To Do:
 #add donate button & check how to submit donation
 #cluster visualization
@@ -284,6 +288,10 @@ def show_impact():
 #initial html search is fugly
 #js for # of projects - avoid repeats?
 #project description in infobox on map
+#confirm button for portfolios
+#user pages
+#title links for search page
+#impact scores for projects
 
 
 if __name__ == "__main__":

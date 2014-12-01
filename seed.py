@@ -144,11 +144,19 @@ def load_poverty_levels(session):
         session.commit()
 
 def load_clusters(session):
-    with open('clusters.csv', 'rb') as csvfile:
-        all_clusters = csv.reader(csvfile, delimiter = ",")
+    # with open('clusters.csv', 'rb') as csvfile:
+    #     all_clusters = csv.reader(csvfile, delimiter = ",")
+    #     for line in all_clusters:
+    #         c = model.Cluster()
+    #         c.cluster_num = line[2]
+    #         c.project_id = line[1]
+    #         session.add(c)
+    #     session.commit()
+    with open('k_clusters.csv', 'rb') as csvfile:
+        all_clusters = csv.reader(csvfile, delimiter=",")
         for line in all_clusters:
             c = model.Cluster()
-            c.cluster_num = line[2]
+            c.cluster_num = line[0]
             c.project_id = line[1]
             session.add(c)
         session.commit()
