@@ -13,33 +13,52 @@
     <script src="http://listjs.com/no-cdn/list.pagination.js"></script>
   
     <script src="../static/js/portfolio_select.js" type="text/javascript"></script>
+    <style>
+    #results {
+      margin-left: 50px;
+      width: 600px;
+    }
+    dl{
+      margin-left: 2px;
+    }
+    form{
+      margin-bottom: 20px; 
+    }
+    .inline {
+      float: left;
+      margin-right: 10px;
+    }
+    .checkbox-inline{
+      width: 500px;
+    }
+    .well.well-sm{
+      width: 560px;
+    }
+    </style>
   </head>
   
   <body>
-  <div id="wrapper">
-    <div class="container" id="container">
-      <div id="page-contents-wrapper">
-        <div>
-          <form id="number" method="POST">
-            <label for="proj_number">Number of projects to support:</label>
-            <input type="text" name="{{id}}" id="proj_number" /><br>
-            <input type="submit">
-          </form>
-        </div>
-        <div id="results">
-          <ul class="list" id="projects">
-          </ul>
-          <ul class="pagination"></ul>
-        </div>
-        <form id="add" style="visibility:hidden">
-          <div>
-            <button class="btn btn-primary btn-lg pull-right" type="submit">Add to Portfolio</button>
-        </div>
+      <div>
+        <h3>Choose projects for your portfolio</h3>
+        <p>You can indicate how many projects you would like in your portfolio here.  After you enter a number, this page will load that many projects from this specific cluster.  Clustering was done using the <a href="http://en.wikipedia.org/wiki/K-means_clustering">k-means algorithm</a>.</p>
+        <form id="number" method="POST">
+          <label for="proj_number">Number of projects to support:</label>
+          <input type="text" name="{{id}}" id="proj_number" />
+          <input type="submit" class="btn btn-xs btn-primary">
         </form>
       </div>
-    </div>
+      <div id="results">
+        <ul class="list" id="projects">
+        </ul>
+        <ul class="pagination"></ul>
+      </div>
+      <form id="add" style="visibility:hidden">
+        <div>
+          <button class="btn btn-primary btn-lg pull-right" type="submit">Add to Portfolio</button>
+      </div>
+      </form>
+
     
-  </div>
 
   </body>
 

@@ -19,28 +19,65 @@
         -webkit-background-size: cover;
         -moz-background-size: cover;
         ;}
-
-    #content{
-        position: absolute;
-        bottom: 100px;
-
+    .wrapper {
+        /* set the height of the element which contains what you want to center */
+        height: 100%;
+        /* these styles are optional, to set width horizontally center the page */
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
     }
+    .wrapper:before, #content {
+      /* these are the important styles for the centered element: */
+        display: inline-block;
+        vertical-align: middle;
+        text-align: left;
+        background-color: white;
+        background-color: rgba(255,255,255,0.5);
+        border: 50px;
+        border-color: white;
+    }
+    #content{
+        border: 200px;
+        padding: 50px;
+        border-color: rgba(255,255,255,0.5);
+        /*border: 2px solid;*/
+        border-radius: 25px;
+        text-align: center;
+    }
+    .wrapper:before {
+        /* this is the important part */
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 100%;
+        vertical-align: middle;
+        /* this just takes care of whitespace added by having display:inline-block (there are other methods) */
+        margin-left: -0.25em;
+    }
+button {
+    width: 193px;
+}
+
 
 </style>
 </head>
 
 <body>
+<div class="wrapper">
 <div id="content">
-<h1> Search by: </h1>
+<h1><b>ChoosyDonors</b></h1>
+<h3> Search by: </h1>
 <form action="/portfolio_choices">    
-	<button name="Portfolio"> Portfolio of Projects </button>
+	<button class="btn btn-lg btn-primary" name="Portfolio"> Portfolio of Projects </button>
 </form>
 <form action="/project_search">
-	<button> Single Project </button>
+	<button class="btn btn-lg btn-primary"> Single Project </button>
 </form>
 <form action="/impact">
-	<button> Impact </button>
+	<button class="btn btn-lg btn-primary"> Impact </button>
 </form>
+</div>
 </div>
 </body>
 {% endblock %}

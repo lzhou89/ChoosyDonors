@@ -34,10 +34,10 @@ $(document).ready(function(){
 function getSearchTerms(e){
   e.preventDefault();
   var input = {};
-  var keywordArea = $("#searchbox");
-  if(keywordArea.val()!==""){
-    input["keyword"] = keywordArea.val();
-  }
+  // var keywordArea = $("#searchbox");
+  // if(keywordArea.val()!==""){
+  //   input["keyword"] = keywordArea.val();
+  // }
   var zipArea = $("#zipcode");
   if(zipArea.val()!==""){
     input["zipcode"] = zipArea.val();
@@ -61,38 +61,46 @@ function getSearchTerms(e){
   })
   .done(function(results) {
     var output = JSON.parse(results);
-    $('#results').html("");
+    $('#results').html("<ul class='list' id='list_results'></ul>");
 
-    for (var i=0; i < 5; i++) {
+    for (var i=0; i < output.length; i++) {
       var rDiv = document.createElement('div');
-      $('#results').append(rDiv);
+      rDiv.className = "well well-sm";
+      $('#list_results').append(rDiv);
       if (output.length === 0) {
       rDiv.innerHTML = "No results found.";
       break;
       } else{
         rDiv.innerHTML = "<dd><a href='/project/"+output[i]["id"]+
             "'>"+output[i]["title"]+"</a></dd>"+
-            "<dt>Teacher Name:</dt><dd>"+output[i]["teacher"]+"</dd>"+
-            "<dt>School Name:</dt><dd>"+output[i]["school"]+"</dd>"+
-            "<dt>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
-            "<dt>Grade Level:</dt><dd>"+output[i]["grade"]+"</dd>"+
-            "<dt>Matching Icon:</dt><dd>"+output[i]["matching"]+"</dd>"+
-            "<dt>Keywords:</dt><dd></dd>"+
+            "<dt class='inline'>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
+            "<dt class='inline'>Grade Level:</dt><dd>"+output[i]["grade"]+"</dd>"+
             "<dt>Needs:</dt><dd>"+output[i]["needs"]+"</dd>"+
           "</dl>";
       }
 
       
     }
+    var rUl = document.createElement('ul');
+      rUl.className = "pagination";
+      $('#results').append(rUl);
+      var options = {
+        valueNames: ['well well-sm'],
+        page: 5,
+        plugins: [
+          ListPagination({})
+        ]
+      };
+      var listObj = new List('results', options);
   });
 }
 
 function getCheckboxes(){
   var input = {};
-  var keywordArea = $("#searchbox");
-  if(keywordArea.val()!==""){
-    input["keyword"] = keywordArea.val();
-  }
+  // var keywordArea = $("#searchbox");
+  // if(keywordArea.val()!==""){
+  //   input["keyword"] = keywordArea.val();
+  // }
   var zipArea = $("#zipcode");
   if(zipArea.val()!==""){
     input["zipcode"] = zipArea.val();
@@ -121,29 +129,38 @@ function getCheckboxes(){
   })
   .done(function(results) {
     var output = JSON.parse(results);
-    $('#results').html("");
-    // var rDiv = document.createElement('div');
+    $('#results').html("<ul class='list' id='list_results'></ul>");
 
-    for (var i=0; i < 5; i++) {
+    for (var i=0; i < output.length; i++) {
       var rDiv = document.createElement('div');
-      $('#results').append(rDiv);
+      rDiv.className = "well well-sm";
+      $('#list_results').append(rDiv);
       if (output.length === 0) {
       rDiv.innerHTML = "No results found.";
       break;
       } else{
         rDiv.innerHTML = "<dd><a href='/project/"+output[i]["id"]+
             "'>"+output[i]["title"]+"</a></dd>"+
-            "<dt>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
-            "<dt>Grade Level:</dt><dd>"+output[i]["grade"]+"</dd>"+
-            "<dt>Keywords:</dt><dd></dd>"+
+            "<dt class='inline'>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
+            "<dt class='inline'>Grade Level:</dt><dd>"+output[i]["grade"]+"</dd>"+
             "<dt>Needs:</dt><dd>"+output[i]["needs"]+"</dd>"+
-          "</dl><br>";
+          "</dl>";
       }
 
       
     }
+    var rUl = document.createElement('ul');
+      rUl.className = "pagination";
+      $('#results').append(rUl);
+      var options = {
+        valueNames: ['well well-sm'],
+        page: 5,
+        plugins: [
+          ListPagination({})
+        ]
+      };
+      var listObj = new List('results', options);
   });
-
 }
 
 // function getSearchKeywords(e){

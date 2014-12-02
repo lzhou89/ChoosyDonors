@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, flash, request, session, url
 from sqlalchemy import func
 import model
 import json
+import string
 
 app = Flask(__name__)
 app.secret_key = "adfjalskdjf"
@@ -40,12 +41,8 @@ def load_projects():
     for i in range(len(projects)):
         json_list.append({"id": projects[i].id,
                         "title": projects[i].title, 
-                        "teacher": projects[i].teacher.teacher_name,
-                        "school": projects[i].school.school_name,
                         "location": projects[i].school.city + ", " + projects[i].school.state,
                         "grade": projects[i].grade_level,
-                        "matching": projects[i].matching,
-                        "keywords": "tbd",
                         "needs": projects[i].fulfillment_trailer})
     results = json.dumps(json_list)
     return results
@@ -100,8 +97,6 @@ def save_portfolio():
     print session["user_id"]
     for item in session["portfolio"]:
         pid = '"'+item+'"'
-        # query = modelsession.query(model.Project).get(pid)
-        # print query
         p = model.Portfolio()
         p.donor_id = session["user_id"]
         p.project_id = pid
@@ -156,24 +151,29 @@ def search_single_project():
     checkboxes["Grades"] = grades
     # query = modelsession.query(model.Project).all()
     query = modelsession.query(model.Project).limit(100)
-    # print query[0].id
+    needs = []
+    for item in query:
+        need = item.fulfillment_trailer
+        need = need.split(", including")[0]
+        needs.append(need)
     # area_list = subjects.keys()
-    # print area_list
-    # print query
     # return render_template("single_project (copy).html", query=query, menu = checkboxes, areas = area_list)
-    return render_template("single_project (copy).html", query=query, menu = checkboxes, areas = areas)
+    return render_template("single_project (copy).html", query=query, menu=checkboxes, areas=areas, needs=needs)
     
 @app.route("/project/<project_id>")
 def show_project(project_id):
-    # project_id = '"'+project_id+'"'
     project = modelsession.query(model.Project).get(project_id)
-    return render_template("project_page.html", project=project)
+    description = str(project.synopsis)
+    description = string.replace(description, "\\n", "\n")
+    needs = str(project.fulfillment_trailer)
+    needs = needs.split(", including")[0]
+    print needs
+    return render_template("project_page.html", project=project, description=description, needs=needs)
 
 @app.route("/keyword_search", methods=["POST"])
 def keyword_search():
     categories = generate_dict()
     print categories
-    print request.form.get("keyword")
     print request.form.get("zipcode")
     zip_code = request.form.get("zipcode")
     checkboxes = request.form.get("checkboxes")
@@ -200,17 +200,13 @@ def keyword_search():
     
     # query = query.all()
     query = query.limit(100).all()
-    # print query[0].id
+    print query[0].id
     json_list = []
     for i in range(len(query)):
         json_list.append({"id": query[i].id,
                         "title": query[i].title, 
-                        "teacher": query[i].teacher.teacher_name,
-                        "school": query[i].school.school_name,
                         "location": query[i].school.city + ", " + query[i].school.state,
                         "grade": query[i].grade_level,
-                        "matching": query[i].matching,
-                        "keywords": "tbd",
                         "needs": query[i].fulfillment_trailer})
     results = json.dumps(json_list)
     return results
@@ -260,14 +256,17 @@ def show_login():
 @app.route("/login", methods=["POST"])
 def login():
     email = request.form.get("email")
-    # password = request.form.get("password")
+    password = request.form.get("password")
 
     user = modelsession.query(model.Donor).filter_by(email=email).first()
 
-    if user:
+    if user and user.password == password:
          session["user_id"] = user.id
          flash("Successfully logged in")
          return redirect ("/")
+    elif user and user.password != password:
+        flash("Incorrect password")
+        return redirect("/login")
     else:
          flash("Username not found")
          return redirect("/login") 
@@ -306,17 +305,6 @@ def show_impact():
 @app.route("/zips")
 def list_zips():
     return render_template("zip_codes.html")
-
-#To Do:
-#add donate button & check how to submit donation
-#search doesn't combine subjects, only adds them so AND instead of OR
-#initial html search & project pages are fugly
-#js for # of projects - avoid repeats?
-#impact scores for projects
-#checkboxes across pages, scrollbar for projects
-#explanations
-#if user not logged in when confirming portfolio & if no projects or no name when confirming portfolio
-#asjdflkljdsf
 
 
 if __name__ == "__main__":

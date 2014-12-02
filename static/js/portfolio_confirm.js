@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	var options = {
-		valueNames: ['checkbox'],
+		valueNames: ['"well well-sm"'],
 		page: 5,
 		plugins: [
 			ListPagination({})

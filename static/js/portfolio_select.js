@@ -31,19 +31,18 @@ function getProjects(e){
 
       for (var i=0; i < output.length; i++) {
         var rDiv = document.createElement('div');
-        rDiv.className = "checkbox";
+        rDiv.className = "well well-sm";
         $('#projects').append(rDiv);
         if (output.length === 0) {
         rDiv.innerHTML = "No results found.";
         break;
         } else{
-          rDiv.innerHTML = "<input type='checkbox' id="+output[i]["id"]+" value="+output[i]["id"]+">"+
+          rDiv.innerHTML = "<label class='checkbox-inline'><input type='checkbox' id="+output[i]["id"]+" value="+output[i]["id"]+">"+
             "<dl>"+
-              "<dd><a href='/project/"+output[i]["id"]+"'>"+output[i]["title"]+"</a></dd>"+
-              "<dt>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
-              "<dt>Grade Level:</dt><dd>"+output[i]["grade"]+"</dd>"+
-              "<dt>Keywords:</dt><dd></dd>"+
-              "<dt>Needs:</dt><dd>"+output[i]["needs"]+"</dd>"+
+              "<dd><a href='/project/"+output[i]["id"]+"'>"+output[i]["title"]+"</a></dd></label>"+
+              "<dt class='inline'>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
+              "<dt class='inline'>Grade Level:</dt><dd>"+output[i]["grade"]+"</dd>"+
+              "<dt class='inline'>Needs:</dt><dd>"+output[i]["needs"]+"</dd>"+
             "</dl>";
         }
         
@@ -52,7 +51,7 @@ function getProjects(e){
       rUl.className = "pagination";
       $('#results').append(rUl);
       var options = {
-        valueNames: ['checkbox'],
+        valueNames: ['well well-sm'],
         page: 5,
         plugins: [
           ListPagination({})

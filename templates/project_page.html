@@ -3,30 +3,39 @@
 {% extends 'base.html'%}
 
 {%block body%}
+
+<head>
+	<style>
+		.inline {
+			float: left;
+			margin-right: 10px;
+		}
+	</style>
+</head>
+
 <h1> {{project.title}} </h1>
 <dl>
-<dt>Teacher:</dt> <dd>{{project.teacher.teacher_name}}</dd>
-<dt>School:</dt> <dd>{{project.school.school_name}}</dd>
-<dt>Location:</dt> <dd>{{project.school.city}}, {{project.school.state}}</dd>
-<dt>Grades:</dt> <dd>{{project.grade_level}}</dd>
-<dt>Resource Type:</dt> <dd>{{project.resource_type}}</dd>
-<dt>Total Price:</dt> <dd>${{project.total_price}}</dd>
-<dt>Students Reached:</dt> <dd>{{project.students_reached}}</dd>
-<dt>Percent funded:</dt> <dd>
+<!-- <dt>Teacher:</dt> <dd>{{project.teacher.teacher_name}}</dd>
+<dt>School:</dt> <dd>{{project.school.school_name}}</dd> -->
+<p><dt class="inline">Location:</dt> <dd>{{project.school.city}}, {{project.school.state}}</dd></p>
+<p><dt class="inline">Grades:</dt> <dd>{{project.grade_level}}</dd></p>
+<p><dt class="inline">Resource Type:</dt> <dd>{{project.resource_type}}</dd></p>
+<p><dt class="inline">Total Price:</dt> <dd>${{project.total_price}}</dd></p>
+<p><dt class="inline">Students Reached:</dt> <dd>{{project.students_reached}}</dd></p>
+<p><dt class="inline">Percent funded:</dt> 
+<dd>
 {% if project.percent_funded > 1 %}
 100%
 {% else %}
 {{project.percent_funded}}*100%
 {% endif %}</dd>
-<dt>Donation Matching:</dt> <dd>{{project.matching}}</dd>
+<p><dt class="inline">Donation Matching:</dt> <dd>{{project.matching}}</dd></p>
 
 <dt>Description:</dt>
-<dd><p>{{project.synopsis}}</p>
-{{project.fulfillment_trailer}}</dd>
+<dd><p>{{description}}</p></dd>
+<dt>Needs:</dt>
+<dd>{{needs[1:]}}</dd>
 </dl>
-
-
-
 
 
 {% endblock %}
