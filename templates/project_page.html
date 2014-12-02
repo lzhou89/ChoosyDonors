@@ -12,8 +12,13 @@
 <dt>Resource Type:</dt> <dd>{{project.resource_type}}</dd>
 <dt>Total Price:</dt> <dd>${{project.total_price}}</dd>
 <dt>Students Reached:</dt> <dd>{{project.students_reached}}</dd>
-<dt>Percent funded:</dt> <dd>{{project.percent_funded}}</dd>
-<dt>Matching</dt> <dd>Test</dd>
+<dt>Percent funded:</dt> <dd>
+{% if project.percent_funded > 1 %}
+100%
+{% else %}
+{{project.percent_funded}}*100%
+{% endif %}</dd>
+<dt>Donation Matching:</dt> <dd>{{project.matching}}</dd>
 
 <dt>Description:</dt>
 <dd><p>{{project.synopsis}}</p>

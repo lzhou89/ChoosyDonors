@@ -3,11 +3,18 @@
 {% extends 'base.html'%}
 
 {%block body%}
-<h1>Donor's name</h1>
-<h3>City, State</h3>
-<h3>Zip Code</h3>
-<h4>Num Students Helped:</h4>
-<h4>Total Projects Supported:
+<h1>{{donor.name}}</h1>
+<h3>{{donor.city}}, {{donor.state}} {{donor.zip_code}}</h3>
+<h4>Num Students Helped: {{donor.num_students}}</h4>
+<h4>Total Projects Supported:</h4>
 
+<h3>Portfolios</h3>
+{% for portfolio in portfolios %} 
+	<h4>{{portfolio}}</h4>
+	{% for tuple in portfolios[portfolio] %}
+		<a href='/project/{{tuple[0]}}'>{{tuple[1]}}</a><br>
+	{% endfor %}
+
+{% endfor %}
 {% endblock %}
 </html>

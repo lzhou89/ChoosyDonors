@@ -18,9 +18,7 @@ def show_portfolio_choices():
 @app.route("/portfolio_projects/<id>")
 def select_portfolio_projects(id):
     cluster_id = id
-    # query = modelsession.query(model.Project).all()
-    # query = modelsession.query(model.Project).limit(100)
-    return render_template("portfolio_selection.html", id=cluster_id)#, query=query)
+    return render_template("portfolio_selection.html", id=cluster_id)
 
 @app.route("/load_projects", methods=["POST"])
 def load_projects():
@@ -63,7 +61,6 @@ def save_portfolio_projects():
         for item in checkboxes:
             session["portfolio"].append(item)
         print session["portfolio"]
-    # return redirect("/confirm_portfolio")
     return "/confirm_portfolio"
 
 @app.route("/confirm_portfolio")
@@ -94,6 +91,27 @@ def clear_project():
     print new_project_list
     session["portfolio"] = new_project_list
     return "ok"
+
+@app.route("/save_portfolio", methods=["POST"])
+def save_portfolio():
+    name = request.form.get("portfolio_name")
+    print name
+    print session["portfolio"]
+    print session["user_id"]
+    for item in session["portfolio"]:
+        pid = '"'+item+'"'
+        # query = modelsession.query(model.Project).get(pid)
+        # print query
+        p = model.Portfolio()
+        p.donor_id = session["user_id"]
+        p.project_id = pid
+        p.portfolio_title = name
+        modelsession.add(p)
+    modelsession.commit()
+    session["portfolio"] = []
+    flash("Portfolio successfully saved")
+    return redirect("/confirm_portfolio")
+
 
 @app.route("/project_search")
 def search_single_project():
@@ -162,7 +180,6 @@ def keyword_search():
     query = modelsession.query(model.Project)
     if zip_code:
         print "ok"
-        # query = query.options(subqueryload(model.Project.school)).filter(School.zip_code==zip_code)
         query = query.join(model.School).filter(model.School.zip_code==zip_code)
     if checkboxes:
         checkboxes = checkboxes.split(",")
@@ -245,7 +262,7 @@ def login():
     email = request.form.get("email")
     # password = request.form.get("password")
 
-    user = modelsession.query(model.Donor).filter_by(email = email).first()
+    user = modelsession.query(model.Donor).filter_by(email=email).first()
 
     if user:
          session["user_id"] = user.id
@@ -255,9 +272,18 @@ def login():
          flash("Username not found")
          return redirect("/login") 
 
-@app.route("/profile")
-def show_profile():
-    return render_template("donor_profile.html")
+@app.route("/profile/<donor_id>")
+def show_profile(donor_id):
+    donor = modelsession.query(model.Donor).get(donor_id)
+    portfolios = {}
+    for item in donor.portfolios:
+        query = modelsession.query(model.Project).get(item.project_id)
+        if item.portfolio_title in portfolios:
+            portfolios[item.portfolio_title].append((query.id, query.title))
+        else:
+            portfolios[item.portfolio_title] = [(query.id, query.title)]
+    print portfolios
+    return render_template("donor_profile.html", donor=donor, portfolios=portfolios)
 
 @app.route("/impact")
 def show_impact():
@@ -283,15 +309,14 @@ def list_zips():
 
 #To Do:
 #add donate button & check how to submit donation
-#cluster visualization
 #search doesn't combine subjects, only adds them so AND instead of OR
-#initial html search is fugly
+#initial html search & project pages are fugly
 #js for # of projects - avoid repeats?
-#project description in infobox on map
-#confirm button for portfolios
-#user pages
-#title links for search page
 #impact scores for projects
+#checkboxes across pages, scrollbar for projects
+#explanations
+#if user not logged in when confirming portfolio & if no projects or no name when confirming portfolio
+#asjdflkljdsf
 
 
 if __name__ == "__main__":

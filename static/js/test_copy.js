@@ -62,7 +62,6 @@ function getSearchTerms(e){
   .done(function(results) {
     var output = JSON.parse(results);
     $('#results').html("");
-    // var rDiv = document.createElement('div');
 
     for (var i=0; i < 5; i++) {
       var rDiv = document.createElement('div');
@@ -71,7 +70,8 @@ function getSearchTerms(e){
       rDiv.innerHTML = "No results found.";
       break;
       } else{
-        rDiv.innerHTML = "<dd>"+output[i]["title"]+"</dd>"+
+        rDiv.innerHTML = "<dd><a href='/project/"+output[i]["id"]+
+            "'>"+output[i]["title"]+"</a></dd>"+
             "<dt>Teacher Name:</dt><dd>"+output[i]["teacher"]+"</dd>"+
             "<dt>School Name:</dt><dd>"+output[i]["school"]+"</dd>"+
             "<dt>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
@@ -131,15 +131,13 @@ function getCheckboxes(){
       rDiv.innerHTML = "No results found.";
       break;
       } else{
-        rDiv.innerHTML = "<dd>"+output[i]["title"]+"</dd>"+
-            "<dt>Teacher Name:</dt><dd>"+output[i]["teacher"]+"</dd>"+
-            "<dt>School Name:</dt><dd>"+output[i]["school"]+"</dd>"+
+        rDiv.innerHTML = "<dd><a href='/project/"+output[i]["id"]+
+            "'>"+output[i]["title"]+"</a></dd>"+
             "<dt>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
             "<dt>Grade Level:</dt><dd>"+output[i]["grade"]+"</dd>"+
-            "<dt>Matching Icon:</dt><dd>"+output[i]["matching"]+"</dd>"+
             "<dt>Keywords:</dt><dd></dd>"+
             "<dt>Needs:</dt><dd>"+output[i]["needs"]+"</dd>"+
-          "</dl>";
+          "</dl><br>";
       }
 
       

@@ -185,6 +185,7 @@ class Portfolio(Base):
     id = Column(Integer, primary_key = True)
     donor_id = Column(String(64), ForeignKey('donors.id'), nullable=False)
     project_id = Column(String(64), ForeignKey('projects.id'), nullable=False)
+    portfolio_title = Column(String(120), nullable=True)
 
     project = relationship("Project", backref=backref("portfolios", order_by=id))
     donor = relationship("Donor", backref=backref("portfolios", order_by=id))

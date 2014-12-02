@@ -63,21 +63,25 @@ $(document).ready(function () {
 
 		};
 
-		var infowindow = new google.maps.InfoWindow();
+		var infowindow = new google.maps.InfoWindow({maxWidth: 200});
 		var markers = [];
 		for (var i=0; i < output.length; i++) {
 			var marker = new google.maps.Marker({
 				position: new google.maps.LatLng(output[i]["latitude"], output[i]["longitude"]),
 				map: map,
 				title: output[i]["title"],
-				id: output[i]["id"]
+				id: output[i]["id"],
+				location: output[i]["location"],
+				grade: output[i]["grade"],
+				needs: output[i]["needs"]
 			});
-			// marker.metadata = {id: output[i]["id"]};
 			markers.push(marker);
-			// marker.setMap(map);
 			google.maps.event.addListener(marker, 'click', function() {
 				console.log(this.id);
-				infowindow.setContent("<a href='/project/"+this.id+"'><h3>"+this.title+"</h3></a>"+" Infotext");
+				infowindow.setContent("<a href='/project/"+this.id+"'><b>"+
+										this.title+"</b></a><br><i>"+
+										this.grade+
+										"</i><br>"+this.needs);
 				infowindow.open(map, this);
 				});
 		}

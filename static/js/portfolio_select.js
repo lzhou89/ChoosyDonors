@@ -40,11 +40,8 @@ function getProjects(e){
           rDiv.innerHTML = "<input type='checkbox' id="+output[i]["id"]+" value="+output[i]["id"]+">"+
             "<dl>"+
               "<dd><a href='/project/"+output[i]["id"]+"'>"+output[i]["title"]+"</a></dd>"+
-              "<dt>Teacher Name:</dt><dd>"+output[i]["teacher"]+"</dd>"+
-              "<dt>School Name:</dt><dd>"+output[i]["school"]+"</dd>"+
               "<dt>School Location:</dt><dd>"+output[i]["location"]+"</dd>"+
               "<dt>Grade Level:</dt><dd>"+output[i]["grade"]+"</dd>"+
-              "<dt>Matching Icon:</dt><dd>"+output[i]["matching"]+"</dd>"+
               "<dt>Keywords:</dt><dd></dd>"+
               "<dt>Needs:</dt><dd>"+output[i]["needs"]+"</dd>"+
             "</dl>";
