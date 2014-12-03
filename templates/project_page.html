@@ -20,7 +20,7 @@
 <p><dt class="inline">Location:</dt> <dd>{{project.school.city}}, {{project.school.state}}</dd></p>
 <p><dt class="inline">Grades:</dt> <dd>{{project.grade_level}}</dd></p>
 <p><dt class="inline">Resource Type:</dt> <dd>{{project.resource_type}}</dd></p>
-<p><dt class="inline">Total Price:</dt> <dd>${{project.total_price}}</dd></p>
+<p><dt class="inline">Total Price:</dt> <dd>{{"$%.2f" | format(project.total_price)}}</dd></p>
 <p><dt class="inline">Students Reached:</dt> <dd>{{project.students_reached}}</dd></p>
 <p><dt class="inline">Percent funded:</dt> 
 <dd>

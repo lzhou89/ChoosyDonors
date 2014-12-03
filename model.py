@@ -29,12 +29,12 @@ class Project(Base):
     total_price = Column(Float, nullable=True)
     students_reached = Column(Integer, nullable=True)
     percent_funded = Column(Float, nullable=True)
-    # num_donors = Column(Integer, nullable=True)
+    # num_donors = Column(Integer, nullable=True) calculate this
     matching = Column(Boolean, nullable=True)
     short_description = Column(Text, nullable=True)
     fulfillment_trailer = Column(Text, nullable=True)
     synopsis = Column(Text, nullable=True)
-    # funding_status = Column(String(20), nullable=True)
+    # funding_status = Column(String(20), nullable=True) calculate this
     fund_url = Column(String(120), nullable=True)
     proposal_url = Column(String(120), nullable=True)
     image_url = Column(String(120), nullable=True)
@@ -63,7 +63,7 @@ class Teacher(Base):
     id = Column(String(64), primary_key=True)
     teacher_name = Column(String(30), nullable=True)
     school_id = Column(String(64), ForeignKey('schools.id'), nullable=False)
-    # total_donations = Column(Integer, nullable=True)   # FIXME better name? or kill this if calculable from donations table?
+    # total_donations = Column(Integer, nullable=True) calculate this
     description = Column(Text, nullable=True)
     tfa = Column(Boolean, nullable=True)
     ny_teach = Column(Boolean, nullable=True)
@@ -106,7 +106,7 @@ class School(Base):
     impact_score = Column(Float, nullable=True)
     grade_levels = Column(String(64), nullable=True)
     school_url = Column(String(120), nullable=True)
-    # total_proposals = Column(Integer, nullable=True)  # prob calculable?
+    # total_proposals = Column(Integer, nullable=True) calculate this
 
     supporters = relationship("Donor", secondary="supporters", order_by=id)
     angels = relationship("Donor", secondary="angels", order_by=id)
@@ -120,10 +120,6 @@ class Supporter(Base):
 
     school = relationship("School", backref=backref("supporter_ids", order_by=id))
     donor = relationship("Donor", backref=backref("supporter_of", order_by=id))
-
-
-# calculate this
-# SELECT donor FROM joined_donation GROUP BY donor, school HAVING count(*) >= 3
 
 class Angel(Base):
     __tablename__ = "angels"
@@ -147,12 +143,11 @@ class Donor(Base):
     is_teacher = Column(Boolean, nullable=True)
     num_students = Column(Integer, nullable=True)  # calculable?
     name = Column(String(64), nullable=True)
-    # total_proposals = Column(Integer, nullable=True)  # calculable?
+    # total_proposals = Column(Integer, nullable=True)  # calculate this
     donor_photo_url = Column(String(120), nullable=True)
-    # total_supporters = Column(Integer, nullable=True)  # FIXME JOEL
     num_donors_acquired = Column(Integer, nullable=True)
     donor_profile_url = Column(String(120), nullable=True)
-    # num_proposals_supported = Column(Integer, nullable=True)
+    # num_proposals_supported = Column(Integer, nullable=True) #calculate this
 
     portfolio_projects = relationship("Project", secondary="portfolios")   # [ Project, Project ]
     supported_schools = relationship("School", secondary="supporters", order_by=id)
@@ -164,7 +159,7 @@ class Donation(Base):
     id = Column(String(64), primary_key=True)
     project_id = Column(String(64), ForeignKey('projects.id'), nullable=False)
     donor_id = Column(String(64), ForeignKey('donors.id'), nullable=False)
-    donation_to_project = Column(Float, nullable=True)  # gave to project?
+    donation_to_project = Column(Float, nullable=True) 
     donation_optional_support = Column(Float, nullable=True)  # 
     # donation_total = Column(Float, nullable=True)   # calculate
     # dollar_amount = Column(String(64), nullable=True)  # calculate

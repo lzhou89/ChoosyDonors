@@ -21,23 +21,12 @@ $(document).ready(function(){
       $(this).next().slideDown();
     }
   });
-
-  // $(":checkbox").click(function() {
-  //   var item = this;
-  //   var id = item.id;
-
-  //   getByArea(id)
-  // });
 });
 
 /*search*/
 function getSearchTerms(e){
   e.preventDefault();
   var input = {};
-  // var keywordArea = $("#searchbox");
-  // if(keywordArea.val()!==""){
-  //   input["keyword"] = keywordArea.val();
-  // }
   var zipArea = $("#zipcode");
   if(zipArea.val()!==""){
     input["zipcode"] = zipArea.val();
@@ -78,8 +67,7 @@ function getSearchTerms(e){
             "<dt>Needs:</dt><dd>"+output[i]["needs"]+"</dd>"+
           "</dl>";
       }
-
-      
+ 
     }
     var rUl = document.createElement('ul');
       rUl.className = "pagination";
@@ -97,19 +85,10 @@ function getSearchTerms(e){
 
 function getCheckboxes(){
   var input = {};
-  // var keywordArea = $("#searchbox");
-  // if(keywordArea.val()!==""){
-  //   input["keyword"] = keywordArea.val();
-  // }
   var zipArea = $("#zipcode");
   if(zipArea.val()!==""){
     input["zipcode"] = zipArea.val();
   }
-
-  // $("input:checked").each(function() {
-  //   var checked = $(this);
-  //   input["checkbox"] = checked.val();
-  // });
 
   var selected = [];
   $("input:checked").each(function() {
@@ -146,7 +125,6 @@ function getCheckboxes(){
             "<dt>Needs:</dt><dd>"+output[i]["needs"]+"</dd>"+
           "</dl>";
       }
-
       
     }
     var rUl = document.createElement('ul');
@@ -162,54 +140,3 @@ function getCheckboxes(){
       var listObj = new List('results', options);
   });
 }
-
-// function getSearchKeywords(e){
-//   e.preventDefault();
-//   var searchArea = $("#searchbox");
-//   var keyword = searchArea.val();
-
-//   console.log("search keywords: ", keyword);
-//   $.ajax({
-//     type: "POST",
-//     url: "/keyword_search",
-//     data: { keyword: keyword }
-//   })
-//   .done(function( msg ) {
-//     console.log(msg);
-//   });
-
-// }
-
-// function getSearchZipCode(e){
-//   e.preventDefault();
-//   var searchArea = $("#zipcode");
-//   var zipcode = searchArea.val();
-
-//   console.log("search zipcode: ", zipcode);
-//   $.ajax({
-//     type: "POST",
-//     url: "/zipcode_search",
-//     data: { zipcode: zipcode }
-//   })
-//   .done(function( msg ) {
-//     console.log(msg);
-//   });
-
-// }
-
-// function getByArea(id){
-
-//   var name = "#"+id;
-//   var clicked = $(name);
-//   var area = clicked.val();
-  
-//   console.log("search area: ", area);
-//   $.ajax({
-//     type: "POST",
-//     url:"/area_search",
-//     data: { area: area }
-//   })
-//   .done(function( msg ){
-//     console.log(msg);
-//   });
-// }
